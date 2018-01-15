@@ -19,7 +19,7 @@ bool BaseModel::addBar(Bar &bar)
 {
     if(bars.size() < m_sizex * m_sizey)
     {
-        int i = 1;
+        int i = 0;
         int temp = 0;
         while(1)
         {
@@ -57,4 +57,19 @@ Bar *BaseModel::getElement(int i)
 int BaseModel::size()
 {
     return bars.size();
+}
+
+Bar *BaseModel::next()
+{
+    Bar *bar = nullptr;
+    if( iter != bars.end() )
+    {
+        bar = &(*iter);
+        iter++;
+    }
+    else
+    {
+        iter = bars.begin();
+    }
+    return bar;
 }

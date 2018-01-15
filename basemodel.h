@@ -24,6 +24,7 @@ public:
     int getLengthX() const;
     int getLengthY() const;
     Bar *getElement(int i);
+    Bar *next();
     int size();
     bool addBar(Bar &bar);
     bool delBar(int i);

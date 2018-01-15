@@ -15,4 +15,13 @@ TestBaseModel::TestBaseModel(QObject *parent) : QObject(parent)
     i->addBar(temp2);
     i->addBar(temp3);
     int size = i->size();
+    Bar *p_temp = 0;
+    for(int a = 0; a < i->size() + 2; ++a)
+    {
+        p_temp = i->next();
+        if(p_temp)
+        {
+            temp = *(p_temp);
+        }
+    }
 }

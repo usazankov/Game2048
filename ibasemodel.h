@@ -21,6 +21,9 @@ public:
     //Получить элемент по идентификатору
     Q_INVOKABLE virtual Bar* getElement(int i) = 0;
 
+    //Получить следующий элемент
+    Q_INVOKABLE virtual Bar* next() = 0;
+
     //Получить количество элементов
     Q_INVOKABLE virtual int size() = 0;
 
