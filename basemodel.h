@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QMap>
 #include "ibasemodel.h"
+#include "mapbariterator.h"
 
 class BaseModel : public IBaseModel
 {
@@ -14,7 +15,6 @@ private:
     int m_sizex;
     int m_sizey;
     QMap<int, Bar> bars;
-    QMap<int, Bar>::iterator iter;
 signals:
 
 public slots:
@@ -23,11 +23,7 @@ public slots:
 public:
     int getLengthX() const;
     int getLengthY() const;
-    Bar *getElement(int i);
-    Bar *next();
-    int size();
-    bool addBar(Bar &bar);
-    bool delBar(int i);
+    IBarIterator *createIterator();
 };
 
 #endif // BASEMODEL_H

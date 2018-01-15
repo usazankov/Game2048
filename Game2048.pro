@@ -16,7 +16,10 @@ SOURCES += main.cpp \
     bar.cpp \
     basemodel.cpp \
     ibasemodel.cpp \
-    tests/testbasemodel.cpp
+    tests/testbasemodel.cpp \
+    mapbariterator.cpp \
+    baselogic.cpp \
+    gui/gamefieldhandler.cpp
 
 RESOURCES += qml.qrc
 
@@ -35,4 +38,7 @@ HEADERS += \
     bar.h \
     basemodel.h \
     ibasemodel.h \
-    tests/testbasemodel.h
+    tests/testbasemodel.h \
+    mapbariterator.h \
+    baselogic.h \
+    gui/gamefieldhandler.h
