@@ -2,5 +2,8 @@
     <qresource prefix="/">
         <file>main.qml</file>
         <file>qtquickcontrols2.conf</file>
+        <file>MainField.qml</file>
+        <file>Bar.qml</file>
+        <file>barCreation.js</file>
     </qresource>
 </RCC>

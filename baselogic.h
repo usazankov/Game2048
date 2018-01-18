@@ -16,7 +16,7 @@ public:
     Q_INVOKABLE void Down();
     Q_INVOKABLE void Right();
     Q_INVOKABLE void Left();
-    void process();
+    Q_INVOKABLE void process();
 private:
 
     void addRandomBar();

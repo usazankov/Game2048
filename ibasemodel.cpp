@@ -9,3 +9,8 @@ IBaseModel::~IBaseModel()
 {
 
 }
+
+IBarIterator::IBarIterator(QObject *parent):QObject(parent)
+{
+
+}

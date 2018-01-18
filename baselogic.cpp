@@ -37,11 +37,14 @@ void BaseLogic::addRandomBar()
         std::uniform_int_distribution<> distributionY(0, model->getLengthY() - 1);
         int x = distributionX(generator);
         int y = distributionY(generator);
+        int count = 0;
         while(hasBar(x,y))
         {
             x = distributionX(generator);
             y = distributionY(generator);
+            ++count;
         }
+        qDebug() << "count="<<count;
         temp.setix(x);
         temp.setiy(y);
         iter->addBar(temp);
@@ -75,7 +78,7 @@ void BaseLogic::process()
     addRandomBar();
     iterBar iter = model->createIterator();
     Bar *temp = nullptr;
-    while(iter->hasNext())
+    /*while(iter->hasNext())
     {
         temp = iter->next();
         if(temp)
@@ -85,5 +88,5 @@ void BaseLogic::process()
             qDebug() << "Y:" << temp->iy() << "\n";
         }
     }
-    qDebug() << "size: " << iter->size();
+    qDebug() << "size: " << iter->size();*/
 }

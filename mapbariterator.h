@@ -5,7 +5,7 @@
 #include "ibasemodel.h"
 #include <QMap>
 
-class MapBarIterator : public QObject, public IBarIterator
+class MapBarIterator : public IBarIterator
 {
     Q_OBJECT
     typedef QMap<int, Bar> MapBars;

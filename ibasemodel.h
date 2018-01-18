@@ -2,18 +2,22 @@
 #define IBASEMODEL_H
 #include <QObject>
 #include "bar.h"
+#include <QDebug>
 
-class IBarIterator
+class IBarIterator: public QObject
 {
-
+    Q_OBJECT
 public:
-    virtual Bar* next() = 0;
-    virtual bool hasNext() = 0;
-    virtual int size() = 0;
+    explicit IBarIterator(QObject *parent = nullptr);
+    Q_INVOKABLE virtual Bar* next() = 0;
+    Q_INVOKABLE virtual bool hasNext() = 0;
+    Q_INVOKABLE virtual int size() = 0;
     virtual bool remove(int i) = 0;
     virtual Bar* element(int i) = 0;
     virtual bool addBar(const Bar& bar) = 0;
-    virtual ~IBarIterator(){}
+    virtual ~IBarIterator(){
+        //qDebug() << "Iter deleted";
+    }
 };
 typedef IBarIterator* iterBar;
 class IBaseModel : public QObject

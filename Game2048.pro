@@ -42,3 +42,5 @@ HEADERS += \
     mapbariterator.h \
     baselogic.h \
     gui/gamefieldhandler.h
+
+DISTFILES +=

@@ -1,6 +1,6 @@
 #include "mapbariterator.h"
 
-MapBarIterator::MapBarIterator(MapBars *bars, QObject *parent) : QObject(parent)
+MapBarIterator::MapBarIterator(MapBars *bars, QObject *parent) : IBarIterator(parent)
 {
     this->bars = bars;
     iter = bars->begin();
@@ -26,7 +26,7 @@ bool MapBarIterator::hasNext()
 {
     if(bars->size() > 0)
     {
-        if(iter == bars->end())
+        if(iter == bars->end() )
             return 0;
         else
             return 1;
