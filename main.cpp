@@ -8,18 +8,15 @@
 
 int main(int argc, char *argv[])
 {
-    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+    QCoreApplication::setAttribute(Qt::AA_UseSoftwareOpenGL);
     QGuiApplication app(argc, argv);
-
+    QGuiApplication::setApplicationName("Game2048");
     QQmlApplicationEngine engine;
-    IBaseModel *model = new BaseModel(100,100);
-    BaseLogic logic(model);
-    GameFieldHandler gameField;
-    gameField.setModel(model);
+    BaseModel model(10,10);
+    BaseLogic logic(&model);
     QQmlContext *pcon=engine.rootContext();
     pcon->setContextProperty("logic", &logic);
-    pcon->setContextProperty("gameField", &gameField);
-    pcon->setContextProperty("model", model);
+    pcon->setContextProperty("model", &model);
     qmlRegisterType<Bar>("io.qt.Game2048", 1, 0, "Bar");
     qmlRegisterInterface<IBarIterator>("IBarIterator");
     engine.load(QUrl(QLatin1String("qrc:/main.qml")));

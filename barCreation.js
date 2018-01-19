@@ -11,13 +11,11 @@ function updateModel()
     while(iter.hasNext())
     {
         var bar = iter.next();
-        console.log(bar);
         if( bar != null)
         {
             createBar(bar.ix, bar.iy, bar.identificator);
         }
     }
-    gc();
     iter.destroy();
 }
 

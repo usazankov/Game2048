@@ -13,7 +13,6 @@ MapBarIterator::~MapBarIterator()
 
 void MapBarIterator::onModelChanged()
 {
-    qDebug() << "OnModelChanged";
     iter = bars->begin();
 }
 

@@ -44,7 +44,6 @@ void BaseLogic::addRandomBar()
             y = distributionY(generator);
             ++count;
         }
-        qDebug() << "count="<<count;
         temp.setix(x);
         temp.setiy(y);
         model->addBar(temp);
