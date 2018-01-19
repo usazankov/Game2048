@@ -11,12 +11,18 @@ MapBarIterator::~MapBarIterator()
 
 }
 
+void MapBarIterator::onModelChanged()
+{
+    qDebug() << "OnModelChanged";
+    iter = bars->begin();
+}
+
 Bar *MapBarIterator::next()
 {
     Bar *bar = nullptr;
     if( iter != bars->end() )
     {
-        bar = &(*iter);
+        bar = &(iter.value());
         iter++;
     }
     return bar;
@@ -43,15 +49,6 @@ int MapBarIterator::size()
     return 0;
 }
 
-bool MapBarIterator::remove(int i)
-{
-    if(bars->contains(i))
-    {
-        bars->remove(i);
-        iter = bars->begin();
-    }
-}
-
 Bar *MapBarIterator::element(int i)
 {
     if(bars->contains(i))
@@ -60,22 +57,4 @@ Bar *MapBarIterator::element(int i)
     }
 }
 
-bool MapBarIterator::addBar(const Bar &bar)
-{
-    int i = 0;
-    int temp = 0;
-    while(1)
-    {
-        if(!bars->contains(i))
-        {
-            temp = i;
-            break;
-        }
-        ++i;
-    }
 
-    (*bars)[temp] = bar;
-    ((*bars)[temp]).setidentificator(temp);
-    iter = bars->begin();
-    return 1;
-}

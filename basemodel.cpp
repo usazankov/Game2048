@@ -17,6 +17,38 @@ int BaseModel::getLengthY() const
 
 IBarIterator *BaseModel::createIterator()
 {
-    return new MapBarIterator(&bars, this);
+    MapBarIterator * iter = new MapBarIterator(&bars, this);
+    connect(this,SIGNAL(modelChanged()),iter,SLOT(onModelChanged()));
+    return iter;
 }
 
+bool BaseModel::addBar(const Bar &bar)
+{
+    int i = 0;
+    int temp = 0;
+    while(1)
+    {
+        if(!bars.contains(i))
+        {
+            temp = i;
+            break;
+        }
+        ++i;
+    }
+
+    bars[temp] = bar;
+    bars[temp].setidentificator(temp);
+    bars[temp].setParent(this);//Иначе сборщик мусора qml удалит элемент bar
+
+    emit modelChanged();
+    return 1;
+}
+
+bool BaseModel::remove(int i)
+{
+    if(bars.contains(i))
+    {
+        bars.remove(i);
+        emit modelChanged();
+    }
+}

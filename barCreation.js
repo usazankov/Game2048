@@ -17,6 +17,7 @@ function updateModel()
             createBar(bar.ix, bar.iy, bar.identificator);
         }
     }
+    gc();
     iter.destroy();
 }
 

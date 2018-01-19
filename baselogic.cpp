@@ -47,9 +47,8 @@ void BaseLogic::addRandomBar()
         qDebug() << "count="<<count;
         temp.setix(x);
         temp.setiy(y);
-        iter->addBar(temp);
+        model->addBar(temp);
     }
-    emit model->modelChanged();
     delete iter;
 }
 
@@ -76,8 +75,6 @@ bool BaseLogic::hasBar(int x, int y)
 void BaseLogic::process()
 {
     addRandomBar();
-    iterBar iter = model->createIterator();
-    Bar *temp = nullptr;
     /*while(iter->hasNext())
     {
         temp = iter->next();

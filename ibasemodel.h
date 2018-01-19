@@ -12,9 +12,8 @@ public:
     Q_INVOKABLE virtual Bar* next() = 0;
     Q_INVOKABLE virtual bool hasNext() = 0;
     Q_INVOKABLE virtual int size() = 0;
-    virtual bool remove(int i) = 0;
-    virtual Bar* element(int i) = 0;
-    virtual bool addBar(const Bar& bar) = 0;
+    Q_INVOKABLE virtual Bar* element(int i) = 0;
+
     virtual ~IBarIterator(){
         //qDebug() << "Iter deleted";
     }
@@ -32,6 +31,8 @@ public:
 
     //Получить итератор
     Q_INVOKABLE virtual IBarIterator* createIterator() = 0;
+    virtual bool remove(int i) = 0;
+    virtual bool addBar(const Bar& bar) = 0;
 
     virtual ~IBaseModel();
 signals:

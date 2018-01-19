@@ -17,13 +17,13 @@ private:
     QMap<int, Bar> bars;
 signals:
 
-public slots:
-
     // IBaseModel interface
 public:
     int getLengthX() const;
     int getLengthY() const;
     IBarIterator *createIterator();
+    bool remove(int i);
+    bool addBar(const Bar &bar);
 };
 
 #endif // BASEMODEL_H

@@ -18,7 +18,7 @@ private:
 signals:
 
 public slots:
-
+    void onModelChanged();
     // IBarIterator interface
 public:
     Bar *next();
