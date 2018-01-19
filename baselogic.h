@@ -18,7 +18,7 @@ public:
     Q_INVOKABLE void Left();
     Q_INVOKABLE void process();
 private:
-
+    void test();
     void addRandomBar();
     bool hasBar(int x, int y);
     IBaseModel *model;

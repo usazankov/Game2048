@@ -11,4 +11,16 @@ Rectangle{
         anchors.centerIn: parent
         text: p_value
     }
+    Behavior on x {
+        NumberAnimation {
+            duration: 1000
+            easing.type: Easing.OutBounce
+        }
+    }
+    Behavior on y {
+        NumberAnimation {
+            duration: 1000
+            easing.type: Easing.OutBounce
+        }
+    }
 }
