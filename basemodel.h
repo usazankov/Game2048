@@ -16,8 +16,8 @@ private:
 
     int m_sizex;
     int m_sizey;
-    QMap<p_point, Bar> bars;
-    static int index;
+    QMap<int, Bar> bars;
+    int index;
 signals:
 
     // IBaseModel interface

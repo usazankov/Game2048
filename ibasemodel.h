@@ -4,38 +4,6 @@
 #include "bar.h"
 #include <QDebug>
 
-struct p_point{
-    int x;
-    int y;
-    friend bool operator==(const p_point& left, const p_point& right)
-    {
-        if(left.x == right.x && left.y == right.y)
-            return 1;
-        else
-            return 0;
-    }
-    friend bool operator<(const p_point& left, const p_point& right)
-    {
-        if(left.y < right.y)
-            return 1;
-        else if(left.y == right.y && left.x < right.x)
-        {
-            return 1;
-        }
-            return 0;
-    }
-    friend bool operator>(const p_point& left, const p_point& right)
-    {
-        if(left.y > right.y)
-            return 1;
-        else if(left.y == right.y && left.x > right.x)
-        {
-            return 1;
-        }
-            return 0;
-    }
-};
-
 class IBarIterator: public QObject
 {
     Q_OBJECT

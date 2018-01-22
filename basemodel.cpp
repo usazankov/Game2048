@@ -2,10 +2,8 @@
 
 BaseModel::BaseModel(int x, int y, QObject *parent) : IBaseModel(parent), m_sizex(x), m_sizey(y)
 {
-
+    index = 0;
 }
-
-int BaseModel::index = 0;
 
 int BaseModel::getLengthX() const
 {
@@ -26,37 +24,33 @@ IBarIterator *BaseModel::createIterator()
 
 bool BaseModel::addBar(const Bar &bar)
 {
-    p_point p;
-    p.x = bar.ix();
-    p.y = bar.iy();
     int i = 0;
     int temp = 0;
-    if(!bars.contains(p))
+    while(1)
     {
-        bars[p] = bar;
-        bars[p].setidentificator(index++);
-        bars[p].setParent(this);//Иначе сборщик мусора qml удалит элемент bar
-        emit modelChanged();
-        return 1;
-    }else
-    {
-        return 0;
+        if(!bars.contains(i))
+        {
+            temp = i;
+            break;
+        }
+        ++i;
     }
+    bars[temp] = bar;
+    bars[temp].setidentificator(temp);
+    bars[temp].setParent(this);//Иначе сборщик мусора qml удалит элемент bar
+
+    emit modelChanged();
+    return 1;
 
 }
 
 bool BaseModel::remove(int i)
 {
-    for(auto iter = bars.begin(); iter != bars.end(); ++iter)
+    if(bars.contains(i))
     {
-        if(iter.value().identificator() == i)
-        {
-            p_point t;
-            t.x = iter.value().ix();
-            t.y = iter.value().iy();
-            bars.remove(t);
-            return 1;
-        }
+        bars.remove(i);
+        emit modelChanged();
+        return 1;
     }
     return 0;
 }

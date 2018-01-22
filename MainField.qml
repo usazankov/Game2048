@@ -13,7 +13,16 @@ Item{
     Rectangle {
         id: gamerect
         anchors.fill: parent
-        color: "#ffd7a8"    
+        color: "#ffd7a8"
+        focus: true
+
+        Keys.onUpPressed: {
+            console.log("UP!");
+            logic.up();
+            Code.setEnabledAnim(true);
+            Code.updateModel();
+            Code.setEnabledAnim(false);
+        }
     }
     MouseArea {
         anchors.fill: parent

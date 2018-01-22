@@ -5,22 +5,22 @@ BaseLogic::BaseLogic(IBaseModel *model) : QObject(model)
     this->model = model;
 }
 
-void BaseLogic::Up()
+void BaseLogic::up()
 {
     iterBar iter = model->createIterator();
     Bar * bar = nullptr;
     //Двигаемся по столбцам:
-    for(int i = 1; i < model->getLengthX() - 1; ++i)
+    for(int i = 0; i < model->getLengthX(); ++i)
     {
-        for(int j = 0; j < model->getLengthY() - 1; ++j)
+        for(int j = 0; j < model->getLengthY(); ++j)
         {
             bar = iter->element(i,j);
             if(bar)
             {
                 int posmove = possibleMove(*bar, c_Up);
-                if( posmove > 0)
+                if( posmove >= 0)
                 {
-                    bar->setiy(bar->iy()- posmove);
+                    bar->setiy(posmove);
                 }
             }
 
@@ -28,17 +28,17 @@ void BaseLogic::Up()
     }
 }
 
-void BaseLogic::Down()
+void BaseLogic::down()
 {
 
 }
 
-void BaseLogic::Right()
+void BaseLogic::right()
 {
 
 }
 
-void BaseLogic::Left()
+void BaseLogic::left()
 {
 
 }
@@ -82,8 +82,19 @@ bool BaseLogic::hasBar(int x, int y)
 
 void BaseLogic::process()
 {
-    Up();
-    addRandomBar();
+    for(int i = 0; i < 1000; i++)
+    {
+        addRandomBar();
+    }
+
+    /*Bar temp;
+    temp.setix(0);
+    temp.setiy(1);
+    Bar temp2;
+    temp2.setix(0);
+    temp2.setiy(3);
+    model->addBar(temp);
+    model->addBar(temp2);*/
 }
 
 //Вычисляет расстояние до ближайшего бара, если будет двигаться в зависимости от команды
@@ -98,17 +109,17 @@ int BaseLogic::possibleMove(const Bar &bar, BaseLogic::Command c)
         if( bar.iy() != 0 )
         {
             bool found = 0;
-            for(int i = bar.iy(); i <= 0; --i)
+            for(int i = bar.iy() - 1; i >= 0; --i)
             {
                 if(hasBar(bar.ix(),i))
                 {
-                    res = bar.iy() - i;
+                    res = i + 1;
                     found = 1;
                     break;
                 }
             }
             if(!found)
-                res = bar.iy();
+                res = 0;
         }
         break;
     case c_Down:

@@ -27,7 +27,6 @@ function updateModel()
 }
 function updatePositionBars()
 {
-    console.log("updatePositionBars()");
     for(var key in bars) {
         bars[key].x = bars[key].x_i * mainfield.width/x_count;
         bars[key].y = bars[key].y_i * mainfield.height/y_count;
@@ -56,21 +55,17 @@ function loadComponent(x,y,i) {
 function contains(arr, value) {
     if (value in arr)
     {
-        console.log("Contains!");
         return 1;
     }
     else
     {
-        console.log("No contains");
         return 0;
     }
 }
 
 function createItem(x,y,i) {
     if (itemComponent.status == Component.Ready) {
-        console.log("createItem x:",x," y:",y);
         if(!contains(bars, i)){
-            console.log("createItem x:",x," y:",y);
             var item = itemComponent.createObject(gamerect, {
                                                   "x": x,
                                                   "y": y,
@@ -88,19 +83,19 @@ function createItem(x,y,i) {
         console.log(itemComponent.errorString());
     }
 }
+function setEnabledAnim(enabled)
+{
+    for(var i in bars) {
+        bars[i].anim_x = enabled;
+        bars[i].anim_y = enabled;
+    }
+}
 function resizeGameField()
 {
-    console.log("resizeGameField()");
-    for (var i = 0; i < bars.length; i++) {
+    for(var i in bars) {
         bars[i].width = mainfield.width/x_count;
         bars[i].height = mainfield.height/y_count;
         bars[i].x = bars[i].x_i * (mainfield.width/x_count);
         bars[i].y = bars[i].y_i * (mainfield.height/y_count);
-    }
-}
-function print_t(){
-    for (var i = 0; i < bars.length; i++) {
-        console.log("i=", bars[i].index);
-
     }
 }

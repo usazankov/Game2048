@@ -13,10 +13,10 @@ class BaseLogic : public QObject
     Q_OBJECT
 public:
     explicit BaseLogic(IBaseModel* model);
-    Q_INVOKABLE void Up();
-    Q_INVOKABLE void Down();
-    Q_INVOKABLE void Right();
-    Q_INVOKABLE void Left();
+    Q_INVOKABLE void up();
+    Q_INVOKABLE void down();
+    Q_INVOKABLE void right();
+    Q_INVOKABLE void left();
     Q_INVOKABLE void process();
 private:
     enum Command
