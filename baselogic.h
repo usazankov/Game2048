@@ -4,8 +4,9 @@
 #include <QObject>
 #include "ibasemodel.h"
 #include "basemodel.h"
-#include <random>
 #include <QDebug>
+#include <cstdlib>
+#include <ctime>
 
 class BaseLogic : public QObject
 {
@@ -18,6 +19,14 @@ public:
     Q_INVOKABLE void Left();
     Q_INVOKABLE void process();
 private:
+    enum Command
+    {
+        c_Up = 0,
+        c_Down,
+        c_Right,
+        c_Left
+    };
+    int possibleMove(const Bar& bar, Command c);
     void test();
     void addRandomBar();
     bool hasBar(int x, int y);

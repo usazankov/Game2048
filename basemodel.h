@@ -6,15 +6,18 @@
 #include "ibasemodel.h"
 #include "mapbariterator.h"
 
+
 class BaseModel : public IBaseModel
 {
     Q_OBJECT
 public:
     explicit BaseModel(int x, int y, QObject *parent = nullptr);
 private:
+
     int m_sizex;
     int m_sizey;
-    QMap<int, Bar> bars;
+    QMap<p_point, Bar> bars;
+    static int index;
 signals:
 
     // IBaseModel interface

@@ -50,10 +50,24 @@ int MapBarIterator::size()
 
 Bar *MapBarIterator::element(int i)
 {
-    if(bars->contains(i))
+    /*if(bars->contains(i))
     {
         return &((*bars)[i]);
+    }*/
+}
+
+Bar *MapBarIterator::element(int x, int y)
+{
+    Bar *bar = nullptr;
+    if(bars->size() > 0)
+    {
+        for(auto iter = bars->begin(); iter != bars->end(); ++iter)
+        {
+            if(iter.value().ix() == x && iter.value().iy() == y)
+                bar = &iter.value();
+        }
     }
+    return bar;
 }
 
 

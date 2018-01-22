@@ -8,13 +8,13 @@
 class MapBarIterator : public IBarIterator
 {
     Q_OBJECT
-    typedef QMap<int, Bar> MapBars;
+    typedef QMap<p_point, Bar> MapBars;
 public:
     explicit MapBarIterator(MapBars *bars, QObject *parent = nullptr);
     ~MapBarIterator();
 private:
     MapBars *bars;
-    QMap<int, Bar>::iterator iter;
+    QMap<p_point, Bar>::iterator iter;
 signals:
 
 public slots:
@@ -27,7 +27,7 @@ public:
     bool remove(int i);
     Bar *element(int i);
     bool addBar(const Bar &bar);
-    int maxSize();
+    Bar *element(int x, int y);
 };
 
 #endif // MAPBARITERATOR_H
