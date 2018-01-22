@@ -2,7 +2,7 @@
 #define BASEMODEL_H
 
 #include <QObject>
-#include <QMap>
+#include <QHash>
 #include "ibasemodel.h"
 #include "mapbariterator.h"
 
@@ -16,7 +16,7 @@ private:
 
     int m_sizex;
     int m_sizey;
-    QMap<int, Bar> bars;
+    QHash<int, Bar> bars;
     int index;
 signals:
 

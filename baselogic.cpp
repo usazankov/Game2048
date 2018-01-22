@@ -82,10 +82,8 @@ bool BaseLogic::hasBar(int x, int y)
 
 void BaseLogic::process()
 {
-    for(int i = 0; i < 1000; i++)
-    {
-        addRandomBar();
-    }
+
+    addRandomBar();
 
     /*Bar temp;
     temp.setix(0);

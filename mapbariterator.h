@@ -3,18 +3,18 @@
 
 #include <QObject>
 #include "ibasemodel.h"
-#include <QMap>
+#include <QHash>
 
 class MapBarIterator : public IBarIterator
 {
     Q_OBJECT
-    typedef QMap<int, Bar> MapBars;
+    typedef QHash<int, Bar> MapBars;
 public:
     explicit MapBarIterator(MapBars *bars, QObject *parent = nullptr);
     ~MapBarIterator();
 private:
     MapBars *bars;
-    QMap<int, Bar>::iterator iter;
+    QHash<int, Bar>::iterator iter;
 signals:
 
 public slots:

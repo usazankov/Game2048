@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
     QGuiApplication::setApplicationName("Game2048");
     QQmlApplicationEngine engine;
-    BaseModel model(100,100);
+    BaseModel model(5,5);
     BaseLogic logic(&model);
     QQmlContext *pcon=engine.rootContext();
     pcon->setContextProperty("logic", &logic);
