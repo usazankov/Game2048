@@ -23,6 +23,14 @@ Item{
             Code.updateModel();
             Code.setEnabledAnim(false);
         }
+        Keys.onDownPressed:
+        {
+            console.log("DOWN!");
+            logic.down();
+            Code.setEnabledAnim(true);
+            Code.updateModel();
+            Code.setEnabledAnim(false);
+        }
     }
     MouseArea {
         anchors.fill: parent

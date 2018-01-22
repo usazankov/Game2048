@@ -30,7 +30,25 @@ void BaseLogic::up()
 
 void BaseLogic::down()
 {
+    iterBar iter = model->createIterator();
+    Bar * bar = nullptr;
+    //Двигаемся по столбцам:
+    for(int i = 0; i < model->getLengthX(); ++i)
+    {
+        for(int j = model->getLengthY() - 1; j >= 0; --j)
+        {
+            bar = iter->element(i,j);
+            if(bar)
+            {
+                int posmove = possibleMove(*bar, c_Down);
+                if( posmove >= 0)
+                {
+                    bar->setiy(posmove);
+                }
+            }
 
+        }
+    }
 }
 
 void BaseLogic::right()
@@ -87,10 +105,10 @@ void BaseLogic::process()
 
     /*Bar temp;
     temp.setix(0);
-    temp.setiy(1);
+    temp.setiy(0);
     Bar temp2;
     temp2.setix(0);
-    temp2.setiy(3);
+    temp2.setiy(2);
     model->addBar(temp);
     model->addBar(temp2);*/
 }
@@ -99,7 +117,7 @@ void BaseLogic::process()
 // 0 - движение невозможно
 int BaseLogic::possibleMove(const Bar &bar, BaseLogic::Command c)
 {
-    int res = 0;
+    int res = -1;
     switch (c)
     {
     case c_Up:
@@ -121,7 +139,22 @@ int BaseLogic::possibleMove(const Bar &bar, BaseLogic::Command c)
         }
         break;
     case c_Down:
-
+        // Если снизу нет края
+        if( bar.iy() != model->getLengthY() - 1 )
+        {
+            bool found = 0;
+            for(int i = bar.iy() + 1; i <  model->getLengthY(); ++i)
+            {
+                if(hasBar(bar.ix(),i))
+                {
+                    res = i - 1;
+                    found = 1;
+                    break;
+                }
+            }
+            if(!found)
+                res = model->getLengthY() - 1;
+        }
         break;
     case c_Right:
 

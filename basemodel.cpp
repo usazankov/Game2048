@@ -24,7 +24,6 @@ IBarIterator *BaseModel::createIterator()
 
 bool BaseModel::addBar(const Bar &bar)
 {
-
     bars[index] = bar;
     bars[index].setidentificator(index);
     bars[index].setParent(this);//Иначе сборщик мусора qml удалит элемент bar
