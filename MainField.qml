@@ -23,7 +23,7 @@ Item{
         {
             logic.left();
         }
-        logic.process();
+        //logic.process();
         Code.setEnabledAnim(true);
         Code.updateModel();
         Code.setEnabledAnim(false);
@@ -64,7 +64,9 @@ Item{
         anchors.fill: parent
         onClicked: {
             logic.process();
+            Code.setEnabledAnim(true);
             Code.updateModel();
+            Code.setEnabledAnim(false);
             //Code.createBar(div(mouse.x, mainfield.width/model.getLengthX()),div(mouse.y, mainfield.height/model.getLengthY()));
             //Code.print_t();
         }

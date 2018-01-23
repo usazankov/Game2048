@@ -35,7 +35,7 @@ Rectangle{
         id: behopacity;
         enabled: true
         NumberAnimation {
-            duration: 150
+            duration: 500
             easing.type: Easing.InCubic
         }
     }

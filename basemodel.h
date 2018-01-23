@@ -12,12 +12,14 @@ class BaseModel : public IBaseModel
     Q_OBJECT
 public:
     explicit BaseModel(int x, int y, QObject *parent = nullptr);
+    explicit BaseModel(const BaseModel& model);
+    virtual ~BaseModel();
 private:
 
     int m_sizex;
     int m_sizey;
     QHash<int, Bar> bars;
-    int index;
+    static int index;
 signals:
 
     // IBaseModel interface
@@ -27,6 +29,8 @@ public:
     IBarIterator *createIterator();
     bool remove(int i);
     bool addBar(const Bar &bar);
+    IBaseModel *copyModel();
+    void setModel(IBaseModel *model);
 };
 
 #endif // BASEMODEL_H

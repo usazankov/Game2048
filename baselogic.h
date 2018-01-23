@@ -7,6 +7,8 @@
 #include <QDebug>
 #include <cstdlib>
 #include <ctime>
+#include "command.h"
+#include <QVector>
 
 class BaseLogic : public QObject
 {
@@ -19,18 +21,12 @@ public:
     Q_INVOKABLE void left();
     Q_INVOKABLE void process();
 private:
-    enum Command
-    {
-        c_Up = 0,
-        c_Down,
-        c_Right,
-        c_Left
-    };
-    int possibleMove(const Bar& bar, Command c);
     void test();
     void addRandomBar();
     bool hasBar(int x, int y);
     IBaseModel *model;
+    bool barsMoved;
+    QVector<Command*> commands;
 signals:
 
 public slots:

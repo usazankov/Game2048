@@ -5,6 +5,20 @@ BaseModel::BaseModel(int x, int y, QObject *parent) : IBaseModel(parent), m_size
     index = 0;
 }
 
+int BaseModel::index = 0;
+
+BaseModel::BaseModel(const BaseModel &model)
+{
+    m_sizex = model.m_sizex;
+    m_sizey = model.m_sizey;
+    bars = model.bars;
+}
+
+BaseModel::~BaseModel()
+{
+
+}
+
 int BaseModel::getLengthX() const
 {
     return m_sizex;
@@ -31,6 +45,30 @@ bool BaseModel::addBar(const Bar &bar)
     emit modelChanged();
     return 1;
 
+}
+
+IBaseModel *BaseModel::copyModel()
+{
+    IBaseModel * model = new BaseModel(*this);
+    return model;
+}
+
+void BaseModel::setModel(IBaseModel *model)
+{
+    if(model){
+        iterBar iter = model->createIterator();
+        Bar *bar = nullptr;
+        while(iter->hasNext())
+        {
+            bar = iter->next();
+            if(bar)
+            {
+                bars[bar->identificator()] = *bar;
+            }
+        }
+        iter->deleteLater();
+        emit modelChanged();
+    }
 }
 
 bool BaseModel::remove(int i)

@@ -23,7 +23,8 @@ SOURCES += main.cpp \
     tests/testbasemodel.cpp \
     mapbariterator.cpp \
     baselogic.cpp \
-    gui/gamefieldhandler.cpp
+    gui/gamefieldhandler.cpp \
+    command.cpp
 
 RESOURCES += qml.qrc
 
@@ -45,6 +46,7 @@ HEADERS += \
     tests/testbasemodel.h \
     mapbariterator.h \
     baselogic.h \
-    gui/gamefieldhandler.h
+    gui/gamefieldhandler.h \
+    command.h
 
 DISTFILES +=

@@ -19,10 +19,6 @@ public:
     int identificator() const;
     Bar& operator =(const Bar& b)
     {
-        //проверка на самоприсваивание
-        if (this == &b) {
-            return *this;
-        }
         m_identificator = b.m_identificator;
         m_numeric = b.m_numeric;
         m_ix = b.m_ix;

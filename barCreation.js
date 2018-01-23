@@ -65,6 +65,7 @@ function contains(arr, value) {
 
 function createItem(x,y,i) {
     if (itemComponent.status == Component.Ready) {
+        console.log("i: ",i,"x: ",x,"y: ",y, "x_i: ",x * x_count/mainfield.width,"y_i: ",y * y_count/mainfield.height);
         if(!contains(bars, i)){
             var item = itemComponent.createObject(gamerect, {
                                                   "x": x,
@@ -72,8 +73,8 @@ function createItem(x,y,i) {
                                                   "width": mainfield.width/x_count,
                                                   "height": mainfield.height/y_count,
                                                   "index" : i,
-                                                  "x_i": x * x_count/mainfield.width,
-                                                  "y_i": y * y_count/mainfield.height
+                                                  "x_i": Math.round(x * x_count/mainfield.width),
+                                                  "y_i": Math.round(y * y_count/mainfield.height)
                                               });
             bars[i] = item;
             bars[i].opacity = 1.0;

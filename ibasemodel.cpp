@@ -5,6 +5,11 @@ IBaseModel::IBaseModel(QObject *parent):QObject(parent)
 
 }
 
+IBaseModel::IBaseModel(const IBaseModel &model)
+{
+
+}
+
 IBaseModel::~IBaseModel()
 {
 
