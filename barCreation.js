@@ -76,6 +76,8 @@ function createItem(x,y,i) {
                                                   "y_i": y * y_count/mainfield.height
                                               });
             bars[i] = item;
+            bars[i].opacity = 1.0;
+            bars[i].anim_opacity = false;
         }
         // make sure created item is above the ground layer
     } else if (itemComponent.status == Component.Error) {

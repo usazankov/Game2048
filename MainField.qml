@@ -5,6 +5,29 @@ Item{
     function div(val, by){
         return (val - val % by) / by;
     }
+    function move(command)
+    {
+        if(command === "Up")
+        {
+            logic.up();
+        }
+        else if(command === "Down")
+        {
+            logic.down();
+        }
+        else if(command === "Right")
+        {
+            logic.right();
+        }
+        else if(command === "Left")
+        {
+            logic.left();
+        }
+        logic.process();
+        Code.setEnabledAnim(true);
+        Code.updateModel();
+        Code.setEnabledAnim(false);
+    }
     id: mainfield
     property int x_i: model.getLengthX()
     property int y_i: model.getLengthY()
@@ -18,34 +41,23 @@ Item{
 
         Keys.onUpPressed: {
             console.log("UP!");
-            logic.up();
-            Code.setEnabledAnim(true);
-            Code.updateModel();
-            Code.setEnabledAnim(false);
+            move("Up");
+
         }
         Keys.onDownPressed:
         {
             console.log("DOWN!");
-            logic.down();
-            Code.setEnabledAnim(true);
-            Code.updateModel();
-            Code.setEnabledAnim(false);
+            move("Down");
         }
         Keys.onRightPressed:
         {
             console.log("RIGHT!");
-            logic.right();
-            Code.setEnabledAnim(true);
-            Code.updateModel();
-            Code.setEnabledAnim(false);
+            move("Right");
         }
         Keys.onLeftPressed:
         {
-            console.log("LEFTT!");
-            logic.left();
-            Code.setEnabledAnim(true);
-            Code.updateModel();
-            Code.setEnabledAnim(false);
+            console.log("LEFT!");
+            move("Left");
         }
     }
     MouseArea {
