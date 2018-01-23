@@ -35,7 +35,7 @@ void BaseLogic::down()
     //Двигаемся по столбцам:
     for(int i = 0; i < model->getLengthX(); ++i)
     {
-        for(int j = model->getLengthY() - 1; j >= 0; --j)
+        for(int j = model->getLengthY(); j >= 0; --j)
         {
             bar = iter->element(i,j);
             if(bar)
@@ -53,12 +53,48 @@ void BaseLogic::down()
 
 void BaseLogic::right()
 {
+    iterBar iter = model->createIterator();
+    Bar * bar = nullptr;
+    //Двигаемся по строкам:
+    for(int j = 0; j < model->getLengthY(); ++j)
+    {
+        for(int i = model->getLengthX(); i >= 0; --i)
+        {
+            bar = iter->element(i,j);
+            if(bar)
+            {
+                int posmove = possibleMove(*bar, c_Right);
+                if( posmove >= 0)
+                {
+                    bar->setix(posmove);
+                }
+            }
 
+        }
+    }
 }
 
 void BaseLogic::left()
 {
+    iterBar iter = model->createIterator();
+    Bar * bar = nullptr;
+    //Двигаемся по строкам:
+    for(int j = 0; j < model->getLengthY(); ++j)
+    {
+        for(int i = 0; i < model->getLengthX(); ++i)
+        {
+            bar = iter->element(i,j);
+            if(bar)
+            {
+                int posmove = possibleMove(*bar, c_Left);
+                if( posmove >= 0)
+                {
+                    bar->setix(posmove);
+                }
+            }
 
+        }
+    }
 }
 
 void BaseLogic::addRandomBar()
@@ -105,10 +141,10 @@ void BaseLogic::process()
 
     /*Bar temp;
     temp.setix(0);
-    temp.setiy(0);
+    temp.setiy(4);
     Bar temp2;
-    temp2.setix(0);
-    temp2.setiy(2);
+    temp2.setix(1);
+    temp2.setiy(4);
     model->addBar(temp);
     model->addBar(temp2);*/
 }
@@ -140,7 +176,7 @@ int BaseLogic::possibleMove(const Bar &bar, BaseLogic::Command c)
         break;
     case c_Down:
         // Если снизу нет края
-        if( bar.iy() != model->getLengthY() - 1 )
+        if( bar.iy() != model->getLengthX() - 1 )
         {
             bool found = 0;
             for(int i = bar.iy() + 1; i <  model->getLengthY(); ++i)
@@ -157,10 +193,40 @@ int BaseLogic::possibleMove(const Bar &bar, BaseLogic::Command c)
         }
         break;
     case c_Right:
-
+        // Если справа нет края
+        if( bar.ix() != model->getLengthX() - 1 )
+        {
+            bool found = 0;
+            for(int i = bar.ix() + 1; i <  model->getLengthX(); ++i)
+            {
+                if(hasBar(i,bar.iy()))
+                {
+                    res = i - 1;
+                    found = 1;
+                    break;
+                }
+            }
+            if(!found)
+                res = model->getLengthX() - 1;
+        }
         break;
     case c_Left:
-
+        // Если слева нет края
+        if( bar.ix() != 0 )
+        {
+            bool found = 0;
+            for(int i = bar.ix() - 1; i >= 0; --i)
+            {
+                if(hasBar(i,bar.iy()))
+                {
+                    res = i + 1;
+                    found = 1;
+                    break;
+                }
+            }
+            if(!found)
+                res = 0;
+        }
         break;
     default:
         break;

@@ -17,7 +17,7 @@ Rectangle{
         id: behx;
         enabled: false
         NumberAnimation {
-            duration: 500
+            duration: 300
             easing.type: Easing.InCubic
         }
     }
@@ -25,7 +25,7 @@ Rectangle{
         id: behy;
         enabled: false
         NumberAnimation {
-            duration: 500
+            duration: 300
             easing.type: Easing.InCubic
         }
     }

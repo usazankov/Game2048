@@ -31,6 +31,22 @@ Item{
             Code.updateModel();
             Code.setEnabledAnim(false);
         }
+        Keys.onRightPressed:
+        {
+            console.log("RIGHT!");
+            logic.right();
+            Code.setEnabledAnim(true);
+            Code.updateModel();
+            Code.setEnabledAnim(false);
+        }
+        Keys.onLeftPressed:
+        {
+            console.log("LEFTT!");
+            logic.left();
+            Code.setEnabledAnim(true);
+            Code.updateModel();
+            Code.setEnabledAnim(false);
+        }
     }
     MouseArea {
         anchors.fill: parent
