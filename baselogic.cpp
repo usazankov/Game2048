@@ -3,8 +3,17 @@
 BaseLogic::BaseLogic(IBaseModel *model) : QObject(model)
 {
     this->model = model;
-    for(int i=0; i<1000; i++)
-        addRandomBar();
+    //for(int i=0; i<1000; i++)
+    //   addRandomBar();
+    Bar temp;
+    temp.setix(0);
+    temp.setiy(1);
+    temp.setnumeric(2);
+    Bar temp2;
+    temp2.setix(0);
+    temp2.setiy(3);
+    model->addBar(temp);
+    model->addBar(temp2);
     barsMoved = 1;
 }
 

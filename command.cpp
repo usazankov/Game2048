@@ -53,15 +53,31 @@ int Command::possibleMove(const Bar &bar, Comm c)
         if( bar.iy() != 0 )
         {
             bool found = 0;
+            iterBar iter = model->createIterator();
             for(int i = bar.iy() - 1; i >= 0; --i)
             {
                 if(hasBar(bar.ix(),i))
                 {
-                    res = i + 1;
-                    found = 1;
+                    if(iter->element(bar.ix(),i)->numeric() != bar.numeric())
+                    {
+                        res = i + 1;
+                        found = 1;
+                    }else
+                    {
+                        qDebug() << "iden del:" << iter->element(bar.ix(),i)->identificator();
+                        qDebug() << "num del:" << iter->element(bar.ix(),i)->numeric();
+                        iter->element(bar.ix(),i)->setisDeleted(true);
+                        iter->element(bar.identificator())->setnumeric(bar.numeric() * 2 );
+                        qDebug() << "iden comp:" << bar.identificator();
+                        qDebug() << "num comp:" << bar.numeric();
+                        res = i;
+                        found = 1;
+                    }
+
                     break;
                 }
             }
+            iter->deleteLater();
             if(!found)
                 res = 0;
         }

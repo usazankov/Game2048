@@ -16,14 +16,29 @@ function updateModel()
         {
             bars[bar.identificator].x_i = bar.ix;
             bars[bar.identificator].y_i = bar.iy;
+            bars[bar.identificator].numeric = String(bar.numeric);
+            bars[bar.identificator].isDel = bar.isDeleted;
         }
         else
         {
-            createBar(bar.ix, bar.iy, bar.identificator);
+            createBar(bar.ix, bar.iy, bar.numeric, bar.identificator);
         }
     }
     updatePositionBars();
+    removeisDeletedBars();
     iter.destroy();
+}
+
+function removeisDeletedBars()
+{
+    for(var key in bars) {
+        if(bars[key].isDel === true)
+        {
+            model.remove(key);
+            delete bars[key];
+
+        }
+    }
 }
 function updatePositionBars()
 {
@@ -33,15 +48,15 @@ function updatePositionBars()
     }
 }
 
-function createBar(x_i, y_i, i)
+function createBar(x_i, y_i, num, i)
 {
     var step_x = mainfield.width/x_count;
     var step_y = mainfield.height/y_count;
-    loadComponent(x_i * step_x, y_i * step_y,i);
+    loadComponent(x_i * step_x, y_i * step_y, num, i);
 }
-function loadComponent(x,y,i) {
+function loadComponent(x,y,num,i) {
     if (itemComponent != null) { // component has been previously loaded
-        createItem(x,y,i);
+        createItem(x,y,num,i);
         return;
     }
 
@@ -49,7 +64,7 @@ function loadComponent(x,y,i) {
     if (itemComponent.status == Component.Loading)  //Depending on the content, it can be ready or error immediately
         component.statusChanged.connect(createItem);
     else
-        createItem(x,y,i);
+        createItem(x,y,num,i);
 }
 
 function contains(arr, value) {
@@ -63,7 +78,7 @@ function contains(arr, value) {
     }
 }
 
-function createItem(x,y,i) {
+function createItem(x,y,num,i) {
     if (itemComponent.status == Component.Ready) {
         console.log("i: ",i,"x: ",x,"y: ",y, "x_i: ",x * x_count/mainfield.width,"y_i: ",y * y_count/mainfield.height);
         if(!contains(bars, i)){
@@ -74,7 +89,8 @@ function createItem(x,y,i) {
                                                   "height": mainfield.height/y_count,
                                                   "index" : i,
                                                   "x_i": Math.round(x * x_count/mainfield.width),
-                                                  "y_i": Math.round(y * y_count/mainfield.height)
+                                                  "y_i": Math.round(y * y_count/mainfield.height),
+                                                  "numeric": String(num)
                                               });
             bars[i] = item;
             bars[i].opacity = 1.0;

@@ -1,6 +1,6 @@
 #include "bar.h"
 
-Bar::Bar(QObject *parent):QObject(parent), m_identificator(0), m_numeric(2), m_ix(0), m_iy(0)
+Bar::Bar(QObject *parent):QObject(parent), m_identificator(0), m_numeric(2), m_ix(0), m_iy(0), m_isDeleted(0)
 {
 
 }
@@ -11,6 +11,7 @@ Bar::Bar(const Bar &b)
     m_numeric = b.m_numeric;
     m_ix = b.m_ix;
     m_iy = b.m_iy;
+    m_isDeleted = b.m_isDeleted;
 }
 
 void Bar::setnumeric(int numeric)
@@ -67,4 +68,18 @@ void Bar::setiy(int iy)
 int Bar::iy() const
 {
     return m_iy;
+}
+
+bool Bar::isDeleted() const
+{
+    return m_isDeleted;
+}
+
+void Bar::setisDeleted(bool isDeleted)
+{
+    if (m_isDeleted == isDeleted)
+        return;
+
+    m_isDeleted = isDeleted;
+    emit isDeletedChanged(m_isDeleted);
 }

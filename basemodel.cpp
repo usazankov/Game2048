@@ -58,6 +58,7 @@ void BaseModel::setModel(IBaseModel *model)
     if(model){
         iterBar iter = model->createIterator();
         Bar *bar = nullptr;
+        bars.clear();
         while(iter->hasNext())
         {
             bar = iter->next();

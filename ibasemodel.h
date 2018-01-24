@@ -32,7 +32,7 @@ public:
 
     //Получить итератор
     Q_INVOKABLE virtual IBarIterator* createIterator() = 0;
-    virtual bool remove(int i) = 0;
+    Q_INVOKABLE virtual bool remove(int i) = 0;
     virtual bool addBar(const Bar& bar) = 0;
 
     virtual IBaseModel* copyModel() = 0; //Необходимо освободить память самостоятельно

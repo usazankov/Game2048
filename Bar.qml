@@ -5,15 +5,17 @@ Rectangle{
     color: "#ff8438"
     opacity: 0
     property int index: 0
-    property int p_value: 2
     property int x_i: 0
     property int y_i: 0
+    property bool isDel: false
+    property alias numeric: txt.text;
     property alias anim_x: behx.enabled
     property alias anim_y: behy.enabled
     property alias anim_opacity: behopacity.enabled
     Text{
+        id: txt;
         anchors.centerIn: parent
-        text: p_value
+        text: "2";
     }
     Behavior on x {
         id: behx;

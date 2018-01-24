@@ -9,6 +9,7 @@ class Bar: public QObject
     Q_PROPERTY(int identificator READ identificator WRITE setidentificator NOTIFY identificatorChanged)
     Q_PROPERTY(int ix READ ix WRITE setix NOTIFY ixChanged)
     Q_PROPERTY(int iy READ iy WRITE setiy NOTIFY iyChanged)
+    Q_PROPERTY(bool isDeleted READ isDeleted WRITE setisDeleted NOTIFY isDeletedChanged)
 public:
     explicit Bar(QObject *parent = 0);
     explicit Bar(const Bar& b);
@@ -29,17 +30,22 @@ public:
     {
         return left.m_identificator == right.m_identificator;
     }
+    bool isDeleted() const;
+
 public slots:
     void setnumeric(int numeric);
     void setix(int ix);
     void setiy(int iy);
     void setidentificator(int identificator);
+    void setisDeleted(bool isDeleted);
 
 signals:
     void numericChanged(int numeric);
     void ixChanged(int ix);
     void iyChanged(int iy);
     void identificatorChanged(int identificator);
+
+    void isDeletedChanged(bool isDeleted);
 
 private:
     //Идентификатор бара
@@ -50,6 +56,8 @@ private:
     int m_ix;
     //Индекс по y
     int m_iy;
+    //Удалить бар
+    bool m_isDeleted;
 };
 
 #endif // BAR_H
