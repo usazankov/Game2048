@@ -8,6 +8,7 @@ Rectangle{
     property int x_i: 0
     property int y_i: 0
     property bool isDel: false
+    property int anim_duration: 300
     property alias numeric: txt.text;
     property alias anim_x: behx.enabled
     property alias anim_y: behy.enabled
@@ -21,7 +22,7 @@ Rectangle{
         id: behx;
         enabled: false
         NumberAnimation {
-            duration: 300
+            duration: anim_duration
             easing.type: Easing.InCubic
         }
     }
@@ -29,7 +30,7 @@ Rectangle{
         id: behy;
         enabled: false
         NumberAnimation {
-            duration: 300
+            duration: anim_duration
             easing.type: Easing.InCubic
         }
     }

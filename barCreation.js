@@ -29,14 +29,26 @@ function updateModel()
     iter.destroy();
 }
 
+function Timer() {
+    return Qt.createQmlObject("import QtQuick 2.0; Timer {}", mainfield);
+}
+
 function removeisDeletedBars()
 {
     for(var key in bars) {
         if(bars[key].isDel === true)
         {
             model.remove(key);
-            delete bars[key];
-
+            var delKey = key;
+            var timer = new Timer();
+            timer.interval = bars[key].anim_duration;
+            timer.repeat = false;
+            timer.triggered.connect(function () {
+                bars[delKey].destroy();
+                delete bars[delKey];
+                timer.destroy();
+            })
+            timer.start();
         }
     }
 }
