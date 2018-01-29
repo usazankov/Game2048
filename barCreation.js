@@ -26,6 +26,14 @@ function updateModel()
     }
     updatePositionBars();
     removeisDeletedBars();
+    while(iter.hasNext())
+    {
+        var bar2 = iter.next();
+        console.log("bar.iden: ",bar2.identificator);
+        console.log("bar.x: ",bar2.ix);
+        console.log("bar.y: ",bar2.iy);
+        console.log("\n");
+    }
     iter.destroy();
 }
 
@@ -39,16 +47,22 @@ function removeisDeletedBars()
         if(bars[key].isDel === true)
         {
             model.remove(key);
-            var delKey = key;
+            console.log("bar.iden",bars[key].index);
+            console.log("bar.x",bars[key].x_i);
+            console.log("bar.y",bars[key].y_i);
+            console.log("\n");
+            bars[key].destroy();
+            delete bars[key];
+            /*var delKey = key;
             var timer = new Timer();
             timer.interval = bars[key].anim_duration;
             timer.repeat = false;
             timer.triggered.connect(function () {
+                console.log("Del key: ",delKey);
                 bars[delKey].destroy();
-                delete bars[delKey];
-                timer.destroy();
+                delete bars[key];
             })
-            timer.start();
+            timer.start();*/
         }
     }
 }
@@ -92,20 +106,26 @@ function contains(arr, value) {
 
 function createItem(x,y,num,i) {
     if (itemComponent.status == Component.Ready) {
+        console.log("width=",mainfield.width);
         console.log("i: ",i,"x: ",x,"y: ",y, "x_i: ",x * x_count/mainfield.width,"y_i: ",y * y_count/mainfield.height);
         if(!contains(bars, i)){
             var item = itemComponent.createObject(gamerect, {
-                                                  "x": x,
-                                                  "y": y,
-                                                  "width": mainfield.width/x_count,
-                                                  "height": mainfield.height/y_count,
+                                                  "x": x + (mainfield.width/x_count)/2,
+                                                  "y": y + (mainfield.height/y_count)/2,
+                                                  "width": 0,
+                                                  "height": 0,
                                                   "index" : i,
                                                   "x_i": Math.round(x * x_count/mainfield.width),
                                                   "y_i": Math.round(y * y_count/mainfield.height),
                                                   "numeric": String(num)
                                               });
             bars[i] = item;
-            bars[i].opacity = 1.0;
+            bars[i].anim_x = true;
+            bars[i].anim_y = true;
+            bars[i].width = mainfield.width/x_count;
+            bars[i].height = mainfield.height/y_count;
+            bars[i].x = x;
+            bars[i].y = y;
             bars[i].anim_opacity = false;
         }
         // make sure created item is above the ground layer

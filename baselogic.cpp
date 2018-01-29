@@ -3,18 +3,52 @@
 BaseLogic::BaseLogic(IBaseModel *model) : QObject(model)
 {
     this->model = model;
-    //for(int i=0; i<1000; i++)
-    //   addRandomBar();
-    Bar temp;
+    for(int i=0; i<2; i++)
+       addRandomBar();
+    /*Bar temp;
     temp.setix(0);
     temp.setiy(1);
     temp.setnumeric(2);
     Bar temp2;
     temp2.setix(0);
     temp2.setiy(3);
+    Bar temp3;
+    temp3.setix(0);
+    temp3.setiy(0);
+    temp3.setnumeric(2);
+    Bar temp4;
+    temp4.setix(0);
+    temp4.setiy(4);
+    temp4.setnumeric(2);
     model->addBar(temp);
     model->addBar(temp2);
-    barsMoved = 1;
+    model->addBar(temp3);
+
+    Bar temp5;
+    temp5.setix(1);
+    temp5.setiy(1);
+    temp5.setnumeric(2);
+    Bar temp6;
+    temp6.setix(1);
+    temp6.setiy(3);
+    Bar temp7;
+    temp7.setix(1);
+    temp7.setiy(0);
+    temp7.setnumeric(2);
+    Bar temp8;
+    temp8.setix(1);
+    temp8.setiy(4);
+    temp8.setnumeric(2);
+    Bar temp9;
+    temp9.setix(4);
+    temp9.setiy(0);
+    temp9.setnumeric(2);
+    model->addBar(temp5);
+    model->addBar(temp6);
+    model->addBar(temp7);
+    model->addBar(temp8);
+    model->addBar(temp9);
+    barsMoved = 1;*/
 }
 
 void BaseLogic::up()
@@ -88,13 +122,7 @@ bool BaseLogic::hasBar(int x, int y)
 
 void BaseLogic::process()
 {
-    if(commands.size() > 0){
-        Command *com = commands.back();
-        com->setModel(model);
-        com->unExecute();
-        commands.pop_back();
-        delete com;
-    }
+    addRandomBar();
 
 
     /*Bar temp;
@@ -105,6 +133,17 @@ void BaseLogic::process()
     temp2.setiy(4);
     model->addBar(temp);
     model->addBar(temp2);*/
+}
+
+void BaseLogic::revert()
+{
+    if(commands.size() > 0){
+        Command *com = commands.back();
+        com->setModel(model);
+        com->unExecute();
+        commands.pop_back();
+        delete com;
+    }
 }
 
 void BaseLogic::test()

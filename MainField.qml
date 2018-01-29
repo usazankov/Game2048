@@ -26,19 +26,29 @@ Item{
         //logic.process();
         Code.setEnabledAnim(true);
         Code.updateModel();
+        logic.process();
+        Code.updateModel();
         Code.setEnabledAnim(false);
     }
+
     id: mainfield
     property int x_i: model.getLengthX()
     property int y_i: model.getLengthY()
-    width: parent.width
-    height: parent.height
+    property bool created: false
+    width: 640
+    height: 480
+    onCreatedChanged:
+    {
+        x_i = model.getLengthX();
+        y_i = model.getLengthY();
+        console.log("x_i=",x_i," y_i=",y_i);
+        Code.updateModel();
+    }
     Rectangle {
         id: gamerect
         anchors.fill: parent
         color: "#ffd7a8"
         focus: true
-
         Keys.onUpPressed: {
             console.log("UP!");
             move("Up");

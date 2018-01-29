@@ -63,7 +63,7 @@ Bar *MapBarIterator::element(int x, int y)
     {
         for(auto iter = bars->begin(); iter != bars->end(); ++iter)
         {
-            if(iter.value().ix() == x && iter.value().iy() == y)
+            if(iter.value().ix() == x && iter.value().iy() == y && iter.value().isDeleted() == 0)
             {
                 bar = &iter.value();
                 break;

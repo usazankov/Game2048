@@ -20,6 +20,7 @@ public:
     Q_INVOKABLE void right();
     Q_INVOKABLE void left();
     Q_INVOKABLE void process();
+    Q_INVOKABLE void revert();
 private:
     void test();
     void addRandomBar();
