@@ -35,41 +35,39 @@ Item{
     property int x_i: model.getLengthX()
     property int y_i: model.getLengthY()
     property bool created: false
-    width: 640
-    height: 480
     onCreatedChanged:
     {
-        x_i = model.getLengthX();
-        y_i = model.getLengthY();
         console.log("x_i=",x_i," y_i=",y_i);
         Code.updateModel();
     }
-    Rectangle {
-        id: gamerect
-        anchors.fill: parent
-        color: "#ffd7a8"
-        focus: true
-        Keys.onUpPressed: {
-            console.log("UP!");
-            move("Up");
-
+    //Rectangle{
+      //  id:outrect
+        Rectangle {
+            id: gamerect
+            anchors.fill: parent;
+            color: "#ffd7a8"
+            focus: true
+            Keys.onUpPressed: {
+                console.log("UP!");
+                move("Up");
+            }
+            Keys.onDownPressed:
+            {
+                console.log("DOWN!");
+                move("Down");
+            }
+            Keys.onRightPressed:
+            {
+                console.log("RIGHT!");
+                move("Right");
+            }
+            Keys.onLeftPressed:
+            {
+                console.log("LEFT!");
+                move("Left");
+            }
         }
-        Keys.onDownPressed:
-        {
-            console.log("DOWN!");
-            move("Down");
-        }
-        Keys.onRightPressed:
-        {
-            console.log("RIGHT!");
-            move("Right");
-        }
-        Keys.onLeftPressed:
-        {
-            console.log("LEFT!");
-            move("Left");
-        }
-    }
+    //}
     MouseArea {
         anchors.fill: parent
         onClicked: {

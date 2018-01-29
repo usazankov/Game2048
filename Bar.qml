@@ -9,13 +9,21 @@ Rectangle{
     property bool isDel: false
     property int anim_duration: 300
     property alias numeric: txt.text;
-    property alias anim_x: behx.enabled
-    property alias anim_y: behy.enabled
+    property bool anim_enabled: true
     property bool anim_opacity: true
+    property int margin: 10
     onAnim_opacityChanged:
     {
         behheight.enabled = anim_opacity;
         behwidth.enabled = anim_opacity;
+
+    }
+    onAnim_enabledChanged:
+    {
+        behy.enabled = anim_enabled;
+        behx.enabled = anim_enabled;
+        behwidth.enabled = anim_enabled;
+        behheight.enabled = anim_enabled;
     }
     Text{
         id: txt;
@@ -27,7 +35,7 @@ Rectangle{
         enabled: false
         NumberAnimation {
             duration: anim_duration
-            easing.type: Easing.Linear
+            easing.type: Easing.InQuad
         }
     }
     Behavior on y {
@@ -35,7 +43,7 @@ Rectangle{
         enabled: false
         NumberAnimation {
             duration: anim_duration
-            easing.type:  Easing.Linear
+            easing.type:  Easing.InQuad
         }
     }
     Behavior on width {
@@ -43,7 +51,7 @@ Rectangle{
         enabled: true
         NumberAnimation {
             duration: anim_duration
-            easing.type: Easing.Linear
+            easing.type: Easing.InQuad
         }
     }
     Behavior on height {
@@ -51,7 +59,7 @@ Rectangle{
         enabled: true
         NumberAnimation {
             duration: anim_duration
-            easing.type: Easing.Linear
+            easing.type: Easing.InQuad
         }
     }
     /*Behavior on opacity {

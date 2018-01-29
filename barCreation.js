@@ -69,8 +69,8 @@ function removeisDeletedBars()
 function updatePositionBars()
 {
     for(var key in bars) {
-        bars[key].x = bars[key].x_i * mainfield.width/x_count;
-        bars[key].y = bars[key].y_i * mainfield.height/y_count;
+        bars[key].x = bars[key].x_i * mainfield.width/x_count + bars[key].margin;
+        bars[key].y = bars[key].y_i * mainfield.height/y_count + bars[key].margin;
     }
 }
 
@@ -110,8 +110,8 @@ function createItem(x,y,num,i) {
         console.log("i: ",i,"x: ",x,"y: ",y, "x_i: ",x * x_count/mainfield.width,"y_i: ",y * y_count/mainfield.height);
         if(!contains(bars, i)){
             var item = itemComponent.createObject(gamerect, {
-                                                  "x": x + (mainfield.width/x_count)/2,
-                                                  "y": y + (mainfield.height/y_count)/2,
+                                                  "x": x  + (mainfield.width/x_count)/2,
+                                                  "y": y  + (mainfield.height/y_count)/2,
                                                   "width": 0,
                                                   "height": 0,
                                                   "index" : i,
@@ -120,12 +120,14 @@ function createItem(x,y,num,i) {
                                                   "numeric": String(num)
                                               });
             bars[i] = item;
-            bars[i].anim_x = true;
-            bars[i].anim_y = true;
-            bars[i].width = mainfield.width/x_count;
-            bars[i].height = mainfield.height/y_count;
-            bars[i].x = x;
-            bars[i].y = y;
+            bars[i].anim_enabled = true;
+
+                bars[i].width = (mainfield.width)/x_count - bars[i].margin;
+                bars[i].height = (mainfield.height)/y_count - bars[i].margin;
+
+
+            bars[i].x = x + bars[i].margin/2;
+            bars[i].y = y + bars[i].margin/2;
             bars[i].anim_opacity = false;
         }
         // make sure created item is above the ground layer
@@ -137,16 +139,15 @@ function createItem(x,y,num,i) {
 function setEnabledAnim(enabled)
 {
     for(var i in bars) {
-        bars[i].anim_x = enabled;
-        bars[i].anim_y = enabled;
+        bars[i].anim_enabled = enabled;
     }
 }
 function resizeGameField()
 {
     for(var i in bars) {
-        bars[i].width = mainfield.width/x_count;
-        bars[i].height = mainfield.height/y_count;
-        bars[i].x = bars[i].x_i * (mainfield.width/x_count);
-        bars[i].y = bars[i].y_i * (mainfield.height/y_count);
+        bars[i].width = mainfield.width/x_count - bars[i].margin;
+        bars[i].height = mainfield.height/y_count - bars[i].margin;
+        bars[i].x = (bars[i].x_i) * (mainfield.width/x_count) ;
+        bars[i].y = (bars[i].y_i) * (mainfield.height/y_count) ;
     }
 }
