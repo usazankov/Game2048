@@ -5,5 +5,8 @@
         <file>MainField.qml</file>
         <file>Bar.qml</file>
         <file>barCreation.js</file>
+        <file>constants.js</file>
+        <file>gameFieldCreation.js</file>
+        <file>Tile.qml</file>
     </qresource>
 </RCC>

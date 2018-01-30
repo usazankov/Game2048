@@ -1,4 +1,5 @@
 import QtQuick 2.7
+import "constants.js" as Const
 
 Rectangle{
     id:barrect
@@ -11,7 +12,9 @@ Rectangle{
     property alias numeric: txt.text;
     property bool anim_enabled: true
     property bool anim_opacity: true
-    property int margin: 10
+    property int margin: Const.MARGIN_FIELD
+    z: 10;
+    radius: 10.0
     onAnim_opacityChanged:
     {
         behheight.enabled = anim_opacity;
@@ -32,7 +35,7 @@ Rectangle{
     }
     Behavior on x {
         id: behx;
-        enabled: false
+        enabled: true
         NumberAnimation {
             duration: anim_duration
             easing.type: Easing.InQuad
@@ -40,7 +43,7 @@ Rectangle{
     }
     Behavior on y {
         id: behy;
-        enabled: false
+        enabled: true
         NumberAnimation {
             duration: anim_duration
             easing.type:  Easing.InQuad

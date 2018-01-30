@@ -1,6 +1,8 @@
 import QtQuick 2.7
 import io.qt.Game2048 1.0
 import "barCreation.js" as Code
+import "constants.js" as Const
+import "gameFieldCreation.js" as CodeField
 Item{
     function div(val, by){
         return (val - val % by) / by;
@@ -34,40 +36,46 @@ Item{
     id: mainfield
     property int x_i: model.getLengthX()
     property int y_i: model.getLengthY()
+    property int width_m: width - Const.MARGIN_FIELD;
+    property int height_m: height - Const.MARGIN_FIELD;
     property bool created: false
     onCreatedChanged:
     {
         console.log("x_i=",x_i," y_i=",y_i);
-        Code.updateModel();
-    }
-    //Rectangle{
-      //  id:outrect
-        Rectangle {
-            id: gamerect
-            anchors.fill: parent;
-            color: "#ffd7a8"
-            focus: true
-            Keys.onUpPressed: {
-                console.log("UP!");
-                move("Up");
-            }
-            Keys.onDownPressed:
+        for(var i = 0; i < model.getLengthX(); ++i)
+        {
+            for(var j = 0; j < model.getLengthY(); ++j)
             {
-                console.log("DOWN!");
-                move("Down");
-            }
-            Keys.onRightPressed:
-            {
-                console.log("RIGHT!");
-                move("Right");
-            }
-            Keys.onLeftPressed:
-            {
-                console.log("LEFT!");
-                move("Left");
+                Code.loadComponent_p(i*width_m/model.getLengthX(), j*height_m/model.getLengthY());
             }
         }
-    //}
+        Code.updateModel();
+    }
+    Rectangle {
+        id: gamerect
+        anchors.fill: parent;
+        color: "#ffd7a8"
+        focus: true
+        Keys.onUpPressed: {
+            console.log("UP!");
+            move("Up");
+        }
+        Keys.onDownPressed:
+        {
+            console.log("DOWN!");
+            move("Down");
+        }
+        Keys.onRightPressed:
+        {
+            console.log("RIGHT!");
+            move("Right");
+        }
+        Keys.onLeftPressed:
+        {
+            console.log("LEFT!");
+            move("Left");
+        }
+    }
     MouseArea {
         anchors.fill: parent
         onClicked: {

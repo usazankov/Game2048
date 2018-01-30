@@ -1,9 +1,9 @@
 var itemComponent = null;
+var tileComponent = null;
 var bars = {};
 var count = 0;
 var x_count = model.getLengthX();
 var y_count = model.getLengthY();
-
 
 function updateModel()
 {
@@ -26,14 +26,6 @@ function updateModel()
     }
     updatePositionBars();
     removeisDeletedBars();
-    while(iter.hasNext())
-    {
-        var bar2 = iter.next();
-        console.log("bar.iden: ",bar2.identificator);
-        console.log("bar.x: ",bar2.ix);
-        console.log("bar.y: ",bar2.iy);
-        console.log("\n");
-    }
     iter.destroy();
 }
 
@@ -43,41 +35,34 @@ function Timer() {
 
 function removeisDeletedBars()
 {
-    for(var key in bars) {
-        if(bars[key].isDel === true)
-        {
-            model.remove(key);
-            console.log("bar.iden",bars[key].index);
-            console.log("bar.x",bars[key].x_i);
-            console.log("bar.y",bars[key].y_i);
-            console.log("\n");
-            bars[key].destroy();
-            delete bars[key];
-            /*var delKey = key;
-            var timer = new Timer();
-            timer.interval = bars[key].anim_duration;
-            timer.repeat = false;
-            timer.triggered.connect(function () {
-                console.log("Del key: ",delKey);
-                bars[delKey].destroy();
+    var timer = new Timer();
+    timer.interval = 300;
+    timer.repeat = false;
+    timer.triggered.connect(function () {
+        for(var key in bars) {
+            if(bars[key].isDel === true)
+            {
+                model.remove(key);
+                bars[key].destroy();
                 delete bars[key];
-            })
-            timer.start();*/
+                timer.destroy();
+            }
         }
-    }
+    });
+    timer.start();
 }
 function updatePositionBars()
 {
     for(var key in bars) {
-        bars[key].x = bars[key].x_i * mainfield.width/x_count + bars[key].margin;
-        bars[key].y = bars[key].y_i * mainfield.height/y_count + bars[key].margin;
+        bars[key].x = bars[key].x_i * mainfield.width_m/x_count + Const.MARGIN_FIELD;
+        bars[key].y = bars[key].y_i * mainfield.height_m/y_count + Const.MARGIN_FIELD;
     }
 }
 
 function createBar(x_i, y_i, num, i)
 {
-    var step_x = mainfield.width/x_count;
-    var step_y = mainfield.height/y_count;
+    var step_x = mainfield.width_m/x_count;
+    var step_y = mainfield.height_m/y_count;
     loadComponent(x_i * step_x, y_i * step_y, num, i);
 }
 function loadComponent(x,y,num,i) {
@@ -93,6 +78,19 @@ function loadComponent(x,y,num,i) {
         createItem(x,y,num,i);
 }
 
+function loadComponent_p(x,y) {
+    if (tileComponent != null) { // component has been previously loaded
+        createTile(x,y);
+        return;
+    }
+
+    tileComponent = Qt.createComponent("Tile.qml");
+    if (tileComponent.status == Component.Loading)  //Depending on the content, it can be ready or error immediately
+        component.statusChanged.connect(createTile);
+    else
+        createTile(x,y);
+}
+
 function contains(arr, value) {
     if (value in arr)
     {
@@ -104,30 +102,40 @@ function contains(arr, value) {
     }
 }
 
+function createTile(x,y) {
+    if (tileComponent.status == Component.Ready) {
+            var item = tileComponent.createObject(gamerect, {
+                                                  "x": x + Const.MARGIN_FIELD,
+                                                  "y": y + Const.MARGIN_FIELD,
+                                                  "width": (mainfield.width_m)/x_count - Const.MARGIN_FIELD,
+                                                  "height": (mainfield.height_m)/y_count - Const.MARGIN_FIELD
+                                                  });
+        // make sure created item is above the ground layer
+    } else if (tileComponent.status == Component.Error) {
+        console.log("error creating component");
+        console.log(tileComponent.errorString());
+    }
+}
+
 function createItem(x,y,num,i) {
     if (itemComponent.status == Component.Ready) {
-        console.log("width=",mainfield.width);
-        console.log("i: ",i,"x: ",x,"y: ",y, "x_i: ",x * x_count/mainfield.width,"y_i: ",y * y_count/mainfield.height);
         if(!contains(bars, i)){
             var item = itemComponent.createObject(gamerect, {
-                                                  "x": x  + (mainfield.width/x_count)/2,
-                                                  "y": y  + (mainfield.height/y_count)/2,
+                                                  "x": x  + (mainfield.width_m/x_count)/2,
+                                                  "y": y  + (mainfield.height_m/y_count)/2,
                                                   "width": 0,
                                                   "height": 0,
                                                   "index" : i,
-                                                  "x_i": Math.round(x * x_count/mainfield.width),
-                                                  "y_i": Math.round(y * y_count/mainfield.height),
-                                                  "numeric": String(num)
-                                              });
+                                                  "x_i": Math.round(x * x_count/mainfield.width_m),
+                                                  "y_i": Math.round(y * y_count/mainfield.height_m),
+                                                     "numeric": String(num)
+                                                  });
             bars[i] = item;
             bars[i].anim_enabled = true;
-
-                bars[i].width = (mainfield.width)/x_count - bars[i].margin;
-                bars[i].height = (mainfield.height)/y_count - bars[i].margin;
-
-
-            bars[i].x = x + bars[i].margin/2;
-            bars[i].y = y + bars[i].margin/2;
+            bars[i].width = (mainfield.width_m)/x_count - Const.MARGIN_FIELD;
+            bars[i].height = (mainfield.height_m)/y_count - Const.MARGIN_FIELD;
+            bars[i].x = x + Const.MARGIN_FIELD;
+            bars[i].y = y + Const.MARGIN_FIELD;
             bars[i].anim_opacity = false;
         }
         // make sure created item is above the ground layer
@@ -145,9 +153,9 @@ function setEnabledAnim(enabled)
 function resizeGameField()
 {
     for(var i in bars) {
-        bars[i].width = mainfield.width/x_count - bars[i].margin;
-        bars[i].height = mainfield.height/y_count - bars[i].margin;
-        bars[i].x = (bars[i].x_i) * (mainfield.width/x_count) ;
-        bars[i].y = (bars[i].y_i) * (mainfield.height/y_count) ;
+        bars[i].width = mainfield.width_m/x_count - Const.MARGIN_FIELD;
+        bars[i].height = mainfield.height_m/y_count - Const.MARGIN_FIELD;
+        bars[i].x = (bars[i].x_i) * (mainfield.width_m/x_count) + Const.MARGIN_FIELD;
+        bars[i].y = (bars[i].y_i) * (mainfield.height_m/y_count) + Const.MARGIN_FIELD;
     }
 }
