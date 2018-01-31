@@ -5,6 +5,12 @@ var tiles = [];
 var count = 0;
 var x_count = model.getLengthX();
 var y_count = model.getLengthY();
+var timer = null;
+
+function init()
+{
+    createTimer();
+}
 
 function updateModel()
 {
@@ -38,13 +44,8 @@ function updateModel()
     iter.destroy();
 }
 
-function Timer() {
-    return Qt.createQmlObject("import QtQuick 2.0; Timer {}", mainfield);
-}
-
-function removeisDeletedBars()
-{
-    var timer = new Timer();
+function createTimer() {
+    timer = Qt.createQmlObject("import QtQuick 2.0; Timer {}", mainfield);
     timer.interval = 300;
     timer.repeat = false;
     timer.triggered.connect(function () {
@@ -54,10 +55,13 @@ function removeisDeletedBars()
                 model.remove(key);
                 bars[key].destroy();
                 delete bars[key];
-                timer.destroy();
             }
         }
     });
+}
+
+function removeisDeletedBars()
+{
     timer.start();
 }
 function updatePositionBars()
@@ -70,9 +74,7 @@ function updatePositionBars()
 
 function createBar(x_i, y_i, num, i)
 {
-    var step_x = mainfield.width_m/x_count;
-    var step_y = mainfield.height_m/y_count;
-    loadComponent(x_i * step_x, y_i * step_y, num, i);
+    loadComponent(x_i * mainfield.width_m/x_count, y_i * mainfield.height_m/y_count, num, i);
 }
 function loadComponent(x,y,num,i) {
     if (itemComponent != null) { // component has been previously loaded

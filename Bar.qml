@@ -32,7 +32,7 @@ Rectangle{
         id: txt;
         anchors.centerIn: parent
         color: "#776e65";
-        font.pointSize: 22
+        font.pointSize: 20
         text: "2";
         font.bold: true
         Behavior on text {

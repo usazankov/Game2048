@@ -49,6 +49,7 @@ Item{
                 Code.loadComponent_p(i*width_m/model.getLengthX(), j*height_m/model.getLengthY());
             }
         }
+        Code.init();
         Code.updateModel();
     }
     Rectangle {
@@ -57,22 +58,18 @@ Item{
         color: "#beb0a3"
         focus: true
         Keys.onUpPressed: {
-            console.log("UP!");
             move("Up");
         }
         Keys.onDownPressed:
         {
-            console.log("DOWN!");
             move("Down");
         }
         Keys.onRightPressed:
         {
-            console.log("RIGHT!");
             move("Right");
         }
         Keys.onLeftPressed:
         {
-            console.log("LEFT!");
             move("Left");
         }
     }
