@@ -12,34 +12,22 @@ BaseLogic::BaseLogic(IBaseModel *model) : QObject(model)
 
 void BaseLogic::up()
 {
-    Command *com = new CommandUp(this);
-    com->setModel(model);
-    com->Execute();
-    commands.push_back(com);
+    execute(new CommandUp(this));
 }
 
 void BaseLogic::down()
 {
-    Command *com = new CommandDown(this);
-    com->setModel(model);
-    com->Execute();
-    commands.push_back(com);
+    execute(new CommandDown(this));
 }
 
 void BaseLogic::right()
 {
-    Command *com = new CommandRight(this);
-    com->setModel(model);
-    com->Execute();
-    commands.push_back(com);
+    execute(new CommandRight(this));
 }
 
 void BaseLogic::left()
 {
-    Command *com = new CommandLeft(this);
-    com->setModel(model);
-    com->Execute();
-    commands.push_back(com);
+    execute(new CommandLeft(this));
 }
 
 void BaseLogic::addRandomBar()
@@ -77,6 +65,13 @@ bool BaseLogic::hasBar(int x, int y)
         return 1;
     }
     return 0;
+}
+
+void BaseLogic::execute(Command *command)
+{
+    command->setModel(model);
+    command->Execute();
+    commands.push_back(command);
 }
 
 void BaseLogic::process()

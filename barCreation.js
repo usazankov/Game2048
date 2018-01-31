@@ -160,6 +160,14 @@ function createItem(x,y,num,i) {
             bars[i].height = (mainfield.height_m)/y_count - Const.MARGIN_FIELD;
             bars[i].x = x + Const.MARGIN_FIELD;
             bars[i].y = y + Const.MARGIN_FIELD;
+            if(num > 2)
+            {
+                bars[i].color = Const.colorsBar[String(num)];
+                if(num > 4)
+                {
+                    bars[i].text_color = "#f9f6f2";
+                }
+            }
             bars[i].anim_opacity = false;
         }
         // make sure created item is above the ground layer

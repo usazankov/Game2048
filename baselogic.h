@@ -28,6 +28,7 @@ private:
     void test();
     void addRandomBar();
     bool hasBar(int x, int y);
+    void execute(Command * command);
     IBaseModel *model;
     bool barsMoved;
     QVector<Command*> commands;
