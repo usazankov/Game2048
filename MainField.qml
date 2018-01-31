@@ -56,6 +56,7 @@ Item{
         id: gamerect
         anchors.fill: parent;
         color: "#beb0a3"
+        radius: 10
         focus: true
         Keys.onUpPressed: {
             move("Up");
