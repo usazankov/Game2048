@@ -54,7 +54,7 @@ Item{
     Rectangle {
         id: gamerect
         anchors.fill: parent;
-        color: "#ffd7a8"
+        color: "#beb0a3"
         focus: true
         Keys.onUpPressed: {
             console.log("UP!");

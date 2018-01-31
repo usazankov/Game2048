@@ -1,6 +1,7 @@
 var itemComponent = null;
 var tileComponent = null;
 var bars = {};
+var tiles = [];
 var count = 0;
 var x_count = model.getLengthX();
 var y_count = model.getLengthY();
@@ -17,6 +18,14 @@ function updateModel()
             bars[bar.identificator].x_i = bar.ix;
             bars[bar.identificator].y_i = bar.iy;
             bars[bar.identificator].numeric = String(bar.numeric);
+            if(bar.numeric > 2)
+            {
+                bars[bar.identificator].color = Const.colorsBar[String(bar.numeric)];
+                if(bar.numeric > 4)
+                {
+                    bars[bar.identificator].text_color = "#f9f6f2";
+                }
+            }
             bars[bar.identificator].isDel = bar.isDeleted;
         }
         else
@@ -104,12 +113,15 @@ function contains(arr, value) {
 
 function createTile(x,y) {
     if (tileComponent.status == Component.Ready) {
-            var item = tileComponent.createObject(gamerect, {
+        var item = tileComponent.createObject(gamerect, {
                                                   "x": x + Const.MARGIN_FIELD,
                                                   "y": y + Const.MARGIN_FIELD,
                                                   "width": (mainfield.width_m)/x_count - Const.MARGIN_FIELD,
-                                                  "height": (mainfield.height_m)/y_count - Const.MARGIN_FIELD
-                                                  });
+                                                  "height": (mainfield.height_m)/y_count - Const.MARGIN_FIELD,
+                                                  "x_i": Math.round(x * x_count/mainfield.width_m),
+                                                  "y_i": Math.round(y * y_count/mainfield.height_m)
+                                              });
+        tiles.push(item);
         // make sure created item is above the ground layer
     } else if (tileComponent.status == Component.Error) {
         console.log("error creating component");
@@ -128,7 +140,7 @@ function createItem(x,y,num,i) {
                                                   "index" : i,
                                                   "x_i": Math.round(x * x_count/mainfield.width_m),
                                                   "y_i": Math.round(y * y_count/mainfield.height_m),
-                                                     "numeric": String(num)
+                                                  "numeric": String(num)
                                                   });
             bars[i] = item;
             bars[i].anim_enabled = true;
@@ -157,5 +169,11 @@ function resizeGameField()
         bars[i].height = mainfield.height_m/y_count - Const.MARGIN_FIELD;
         bars[i].x = (bars[i].x_i) * (mainfield.width_m/x_count) + Const.MARGIN_FIELD;
         bars[i].y = (bars[i].y_i) * (mainfield.height_m/y_count) + Const.MARGIN_FIELD;
+    }
+    for (var j = 0; j < tiles.length; j++) {
+        tiles[j].width = mainfield.width_m/x_count - Const.MARGIN_FIELD;
+        tiles[j].height = mainfield.height_m/y_count - Const.MARGIN_FIELD;
+        tiles[j].x = (tiles[j].x_i) * (mainfield.width_m/x_count) + Const.MARGIN_FIELD;
+        tiles[j].y = (tiles[j].y_i) * (mainfield.height_m/y_count) + Const.MARGIN_FIELD;
     }
 }
