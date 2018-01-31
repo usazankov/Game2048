@@ -16,15 +16,17 @@ public:
     {
         model = com.model;
         copy_model = com.copy_model;
+        m_isMoved = com.m_isMoved;
         return *this;
     }
     virtual void Execute();
     virtual void unExecute();
-
+    bool isMoved()const;
 protected:
     IBaseModel *model;
     //Копия модели, чтобы сохранить предыдущее состояние
     IBaseModel *copy_model;
+    bool m_isMoved;
     enum Comm
     {
         c_Up = 0,

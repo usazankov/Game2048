@@ -3,12 +3,14 @@
 Command::Command(QObject *parent) : QObject(parent)
 {
     modelIsChange = 0;
+    m_isMoved = 0;
 }
 
 Command::Command(const Command &com)
 {
     model = com.model;
     copy_model = com.copy_model;
+    m_isMoved = com.m_isMoved;
 }
 
 void Command::setModel(IBaseModel *model)
@@ -43,6 +45,11 @@ void Command::unExecute()
     model->setModel(copy_model);
 }
 
+bool Command::isMoved() const
+{
+    return m_isMoved;
+}
+
 int Command::possibleMove(const Bar &bar, Comm c)
 {
     int res = -1;
@@ -67,6 +74,7 @@ int Command::possibleMove(const Bar &bar, Comm c)
                     {
                         iter->element(bar.ix(),i)->setisDeleted(true);
                         iter->element(bar.identificator())->setnumeric(bar.numeric() * 2 );
+                        model->setScore(model->score() + bar.numeric());
                         res = i;
                         found = 1;
                     }
@@ -75,7 +83,9 @@ int Command::possibleMove(const Bar &bar, Comm c)
             }
             iter->deleteLater();
             if(!found)
+            {
                 res = 0;
+            }
         }
         break;
     case c_Down:
@@ -96,6 +106,7 @@ int Command::possibleMove(const Bar &bar, Comm c)
                     {
                         iter->element(bar.ix(),i)->setisDeleted(true);
                         iter->element(bar.identificator())->setnumeric(bar.numeric() * 2 );
+                        model->setScore(model->score() + bar.numeric());
                         res = i;
                         found = 1;
                     }
@@ -103,7 +114,9 @@ int Command::possibleMove(const Bar &bar, Comm c)
                 }
             }
             if(!found)
+            {
                 res = model->getLengthY() - 1;
+            }
         }
         break;
     case c_Right:
@@ -124,14 +137,16 @@ int Command::possibleMove(const Bar &bar, Comm c)
                     {
                         iter->element(i,bar.iy())->setisDeleted(true);
                         iter->element(bar.identificator())->setnumeric(bar.numeric() * 2 );
+                        model->setScore(model->score() + bar.numeric());
                         res = i;
                         found = 1;
                     }
                     break;
                 }
             }
-            if(!found)
+            if(!found){
                 res = model->getLengthX() - 1;
+            }
         }
         break;
     case c_Left:
@@ -152,6 +167,7 @@ int Command::possibleMove(const Bar &bar, Comm c)
                     {
                         iter->element(i,bar.iy())->setisDeleted(true);
                         iter->element(bar.identificator())->setnumeric(bar.numeric() * 2 );
+                        model->setScore(model->score() + bar.numeric());
                         res = i;
                         found = 1;
                     }
@@ -159,7 +175,9 @@ int Command::possibleMove(const Bar &bar, Comm c)
                 }
             }
             if(!found)
+            {
                 res = 0;
+            }
         }
         break;
     default:
@@ -189,6 +207,7 @@ void CommandUp::Execute()
 {
     if(model){
         Command::Execute();
+        m_isMoved = 0;
         iterBar iter = model->createIterator();
         Bar * bar = nullptr;
         //Двигаемся по столбцам:
@@ -202,8 +221,13 @@ void CommandUp::Execute()
                     int posmove = possibleMove(*bar, c_Up);
                     if( posmove >= 0)
                     {
+                        if(bar->iy() != posmove)
+                        {
+                            m_isMoved = 1;
+                        }
                         bar->setiy(posmove);
                     }
+
                 }
 
             }
@@ -221,6 +245,7 @@ void CommandDown::Execute()
 {
     if(model){
         Command::Execute();
+        m_isMoved = 0;
         iterBar iter = model->createIterator();
         Bar * bar = nullptr;
         //Двигаемся по столбцам:
@@ -234,6 +259,10 @@ void CommandDown::Execute()
                     int posmove = possibleMove(*bar, c_Down);
                     if( posmove >= 0)
                     {
+                        if(bar->iy() != posmove)
+                        {
+                            m_isMoved = 1;
+                        }
                         bar->setiy(posmove);
                     }
                 }
@@ -253,6 +282,7 @@ void CommandRight::Execute()
 {
     if(model){
         Command::Execute();
+        m_isMoved = 0;
         iterBar iter = model->createIterator();
         Bar * bar = nullptr;
         //Двигаемся по строкам:
@@ -266,6 +296,10 @@ void CommandRight::Execute()
                     int posmove = possibleMove(*bar, c_Right);
                     if( posmove >= 0)
                     {
+                        if(bar->ix() != posmove)
+                        {
+                            m_isMoved = 1;
+                        }
                         bar->setix(posmove);
                     }
                 }
@@ -285,6 +319,7 @@ void CommandLeft::Execute()
 {
     if(model){
         Command::Execute();
+        m_isMoved = 0;
         iterBar iter = model->createIterator();
         Bar * bar = nullptr;
         //Двигаемся по строкам:
@@ -298,6 +333,10 @@ void CommandLeft::Execute()
                     int posmove = possibleMove(*bar, c_Left);
                     if( posmove >= 0)
                     {
+                        if(bar->ix() != posmove)
+                        {
+                            m_isMoved = 1;
+                        }
                         bar->setix(posmove);
                     }
                 }

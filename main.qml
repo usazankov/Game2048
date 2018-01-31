@@ -11,39 +11,138 @@ ApplicationWindow {
     visible: true
     width: 480
     height: 640
+    minimumWidth: 400
+    minimumHeight: 600
     title: qsTr("Game2048")
-    Item{
-        id:menutopitem;
-        Rectangle
-        {
-            anchors.fill: parent;
-            color:"#ffff00";
-        }
-        height: 80
-        width: parent.width
-        anchors.top: parent.top
-        anchors.bottomMargin: 5
-        anchors.topMargin: 5
-    }
+    color: "#faf8ef"
     Item{
         id:mainItem
         anchors.horizontalCenter: parent.horizontalCenter
-        /*function minimum(a, b)
-        {
-            return a < b ? a : b;
+        height: parent.height
+        width: parent.width - 20
+        Item{
+            id:menutopitem;
+                Rectangle
+                {
+                    id: bestResult
+                    anchors.verticalCenter: parent.verticalCenter
+                    width: 150
+                    anchors.right: parent.right
+                    color:"#bbada0";
+                    height: 60
+                    radius: 10
+                    Text {
+                        id: txtHbestresult;
+                        anchors.top: parent.top
+                        anchors.topMargin: 10
+                        horizontalAlignment: Text.AlignHCenter
+                        text: qsTr("ЛУЧШИЙ РЕЗУЛЬТАТ");
+                        color: "#d6cdc4";
+                        height:10
+                        font.bold: true
+                        width: parent.width
+                        font.pointSize: 8
+                    }
+                    Text {
+                        id: txtbestresult;
+                        anchors.top: txtHbestresult.bottom
+                        anchors.topMargin: 10
+                        horizontalAlignment: Text.AlignHCenter
+                        text: qsTr("3985");
+                        color: "#f9f6f2";
+                        height:20
+                        font.bold: true
+                        width: parent.width
+                        font.pointSize: 12
+                    }
+                }
+                Rectangle
+                {
+                    id: result
+                    anchors.verticalCenter: parent.verticalCenter
+                    width: 100
+                    anchors.right: bestResult.left
+                    anchors.rightMargin: 10
+                    color:"#bbada0";
+                    height: 60
+                    radius: 10
+                    Text {
+                        id: txtHresult;
+                        anchors.top: parent.top
+                        anchors.topMargin: 10
+                        horizontalAlignment: Text.AlignHCenter
+                        text: qsTr("РЕЗУЛЬТАТ");
+                        color: "#d6cdc4";
+                        height:10
+                        font.bold: true
+                        width: parent.width
+                        font.pointSize: 8
+                    }
+                    Text {
+                        id: txtresult;
+                        anchors.top: txtHresult.bottom
+                        anchors.topMargin: 10
+                        horizontalAlignment: Text.AlignHCenter
+                        text: qsTr("0");
+                        color: "#f9f6f2";
+                        height:20
+                        font.bold: true
+                        width: parent.width
+                        font.pointSize: 12
+                    }
+                }
+                Item
+                {
+                    id: currentTarget
+                    anchors.verticalCenter: parent.verticalCenter
+                    width: parent.width/2 - 20
+                    anchors.left: parent.left
+                    height: 60
+                    Text {
+                        id: txtTarget;
+                        text: qsTr("2048");
+                        color: "#776e65";
+                        anchors.verticalCenter: parent.verticalCenter
+                        font.bold: true
+                        font.pointSize: 34
+                    }
+                }
+
+            height: 80
+            width: mainField.width
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.bottom: menuitem.top
+            anchors.bottomMargin: 5
+            anchors.topMargin: 5
         }
-        width: minimum(parent.height, parent.width);*/
-        height: parent.height + menutopitem.height
-        width: parent.width
         Item{
             id:menuitem;
-            Rectangle
-            {
-                anchors.fill: parent;
-                color:"#ffff00";
-            }
+                Rectangle
+                {
+                    id:btnreset
+                    anchors.verticalCenter: parent.verticalCenter
+                    width: 40
+                    anchors.right: parent.right
+                    color:"#bbada0";
+                    height: 40
+                    radius: 10
+                }
+                Rectangle
+                {
+                    id: btnrevert
+                    anchors.verticalCenter: parent.verticalCenter
+                    width: 40
+                    anchors.right: btnreset.left
+                    anchors.rightMargin: 40
+                    color:"#bbada0";
+                    height: 40
+                    radius: 10
+                }
+
+
             height: 50
-            width: parent.width
+            width: mainField.width
+            anchors.horizontalCenter: parent.horizontalCenter
             anchors.bottom: mainField.top
             anchors.bottomMargin: 5
             anchors.topMargin: 5
@@ -52,22 +151,33 @@ ApplicationWindow {
             id: mainField
             visible: true
             anchors.centerIn: parent
+            anchors.verticalCenterOffset: 43
             function minimum(a, b)
             {
                 return a < b ? a : b;
             }
-            width: minimum(parent.height - menuitem.height - menubottomitem.height - 30, parent.width);
+            width: minimum(parent.height - menuitem.height - menubottomitem.height - 80 - 30, parent.width);
             height: width
         }
         Item{
             id:menubottomitem;
-            Rectangle
+            Item
             {
-                anchors.fill: parent;
-                color:"#ffff00";
+                id:inform
+                anchors.top: parent.top
+                width: parent.width
+                height: 40
+                Text {
+                    id: informtxt;
+                    text: qsTr("2 + 2 = 4. Получи плитку 2048!");
+                    color: "#776e65";
+                    font.bold: true
+                    font.pointSize: 14
+                }
             }
             height: 50
-            width: parent.width
+            width: mainField.width
+            anchors.horizontalCenter: parent.horizontalCenter
             anchors.top: mainField.bottom
             anchors.bottomMargin: 5
             anchors.topMargin: 5

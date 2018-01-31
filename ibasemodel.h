@@ -29,17 +29,19 @@ public:
     //Размеры поля
     Q_INVOKABLE virtual int getLengthX()const = 0;
     Q_INVOKABLE virtual int getLengthY()const = 0;
-
     //Получить итератор
     Q_INVOKABLE virtual IBarIterator* createIterator() = 0;
     Q_INVOKABLE virtual bool remove(int i) = 0;
     virtual bool addBar(const Bar& bar) = 0;
-
     virtual IBaseModel* copyModel() = 0; //Необходимо освободить память самостоятельно
     virtual void setModel(IBaseModel* model) = 0;
+    virtual void setScore(int score);
+    Q_INVOKABLE virtual int score();
     virtual ~IBaseModel();
 signals:
     void modelChanged();
+protected:
+    int m_score;
 public slots:
 };
 #endif // IBASEMODEL_H

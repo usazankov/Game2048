@@ -42,6 +42,7 @@ function updateModel()
     updatePositionBars();
     removeisDeletedBars();
     iter.destroy();
+    txtresult.text = String(model.score());
 }
 
 function createTimer() {

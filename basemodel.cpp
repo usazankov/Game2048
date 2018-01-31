@@ -12,6 +12,7 @@ BaseModel::BaseModel(const BaseModel &model)
     m_sizex = model.m_sizex;
     m_sizey = model.m_sizey;
     bars = model.bars;
+    m_score = model.m_score;
 }
 
 BaseModel::~BaseModel()
@@ -67,6 +68,7 @@ void BaseModel::setModel(IBaseModel *model)
                 bars[bar->identificator()] = *bar;
             }
         }
+        this->setScore(model->score());
         iter->deleteLater();
         emit modelChanged();
     }
