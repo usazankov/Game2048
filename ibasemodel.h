@@ -3,6 +3,7 @@
 #include <QObject>
 #include "bar.h"
 #include <QDebug>
+#include <QSettings>
 
 class IBarIterator: public QObject
 {
@@ -36,12 +37,15 @@ public:
     virtual IBaseModel* copyModel() = 0; //Необходимо освободить память самостоятельно
     virtual void setModel(IBaseModel* model) = 0;
     virtual void setScore(int score);
-    Q_INVOKABLE virtual int score();
+    Q_INVOKABLE virtual int score()const;
+    Q_INVOKABLE virtual int bestScore()const;
+    virtual int setBestScore(int score);
     virtual ~IBaseModel();
 signals:
     void modelChanged();
 protected:
     int m_score;
+    int m_bestScore;
 public slots:
 };
 #endif // IBASEMODEL_H

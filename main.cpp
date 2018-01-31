@@ -11,6 +11,7 @@ int main(int argc, char *argv[])
     QCoreApplication::setAttribute(Qt::AA_UseSoftwareOpenGL);
     QGuiApplication app(argc, argv);
     QGuiApplication::setApplicationName("Game2048");
+    QGuiApplication::setOrganizationName("YuriSazankov");
     QQmlApplicationEngine engine;
     BaseModel model(4,4);
     BaseLogic logic(&model);

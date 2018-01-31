@@ -9,6 +9,7 @@
 #include <ctime>
 #include "command.h"
 #include <QVector>
+#include <QSettings>
 
 class BaseLogic : public QObject
 {
@@ -21,6 +22,8 @@ public:
     Q_INVOKABLE void left();
     Q_INVOKABLE void process();
     Q_INVOKABLE void revert();
+    Q_INVOKABLE void saveBestScore(int score);
+    virtual ~BaseLogic();
 private:
     void test();
     void addRandomBar();
@@ -28,6 +31,8 @@ private:
     IBaseModel *model;
     bool barsMoved;
     QVector<Command*> commands;
+    QSettings *settings;
+    const QString keyScore = "Scores/bestScore";
 signals:
 
 public slots:

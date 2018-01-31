@@ -3,6 +3,7 @@
 IBaseModel::IBaseModel(QObject *parent):QObject(parent)
 {
     m_score = 0;
+
 }
 
 IBaseModel::IBaseModel(const IBaseModel &model)
@@ -15,7 +16,17 @@ void IBaseModel::setScore(int score)
     m_score = score;
 }
 
-int IBaseModel::score()
+int IBaseModel::bestScore() const
+{
+    return m_bestScore;
+}
+
+int IBaseModel::setBestScore(int score)
+{
+    m_bestScore = score;
+}
+
+int IBaseModel::score()const
 {
     return m_score;
 }

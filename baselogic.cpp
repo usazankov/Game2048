@@ -3,8 +3,11 @@
 BaseLogic::BaseLogic(IBaseModel *model) : QObject(model)
 {
     this->model = model;
+    settings = new QSettings(this);
     for(int i=0; i<2; i++)
        addRandomBar();
+    int score = settings->value(keyScore,0).toInt();
+    model->setBestScore(score);
 }
 
 void BaseLogic::up()
@@ -84,6 +87,10 @@ void BaseLogic::process()
         if(com->isMoved())
         {
            addRandomBar();
+           if(model->score() > model->bestScore())
+           {
+               model->setBestScore(model->score());
+           }
         }
     }
 }
@@ -97,6 +104,20 @@ void BaseLogic::revert()
         commands.pop_back();
         delete com;
     }
+}
+
+void BaseLogic::saveBestScore(int score)
+{
+    if(model->bestScore() <= score)
+    {
+        settings->setValue(keyScore, score);
+        model->setBestScore(score);
+    }
+}
+
+BaseLogic::~BaseLogic()
+{
+    delete settings;
 }
 
 void BaseLogic::test()

@@ -2,7 +2,6 @@ import QtQuick 2.7
 import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.3
 
-
 ApplicationWindow {
     onActiveChanged:
     {
@@ -137,6 +136,12 @@ ApplicationWindow {
                     color:"#bbada0";
                     height: 40
                     radius: 10
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: {
+                            mainField.model_revert();
+                        }
+                    }
                 }
 
 

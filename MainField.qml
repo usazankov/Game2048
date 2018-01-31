@@ -31,8 +31,16 @@ Item{
         logic.process();
         Code.updateModel();
         Code.setEnabledAnim(false);
+        logic.saveBestScore(model.score());
     }
-
+    function model_revert()
+    {
+        logic.revert();
+        Code.setEnabledAnim(false);
+        Code.deleteAllBars();
+        Code.updateModel();
+        Code.setEnabledAnim(true);
+    }
     id: mainfield
     property int x_i: model.getLengthX()
     property int y_i: model.getLengthY()

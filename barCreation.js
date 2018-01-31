@@ -43,6 +43,15 @@ function updateModel()
     removeisDeletedBars();
     iter.destroy();
     txtresult.text = String(model.score());
+    txtbestresult.text = String(model.bestScore());
+}
+
+function deleteAllBars()
+{
+    for(var key in bars) {
+        bars[key].destroy();
+        delete bars[key];
+    }
 }
 
 function createTimer() {
