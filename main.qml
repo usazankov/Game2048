@@ -125,6 +125,12 @@ ApplicationWindow {
                     color:"#bbada0";
                     height: 40
                     radius: 10
+                    Image{
+                        width:32
+                        height:32
+                        anchors.centerIn: parent
+                        source: "images/refresh.png";
+                    }
                 }
                 Rectangle
                 {
@@ -136,6 +142,12 @@ ApplicationWindow {
                     color:"#bbada0";
                     height: 40
                     radius: 10
+                    Image{
+                        width:24
+                        height:24
+                        anchors.centerIn: parent
+                        source: "images/reset.png";
+                    }
                     MouseArea {
                         anchors.fill: parent
                         onClicked: {

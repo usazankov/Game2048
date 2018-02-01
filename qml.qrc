@@ -8,5 +8,7 @@
         <file>constants.js</file>
         <file>gameFieldCreation.js</file>
         <file>Tile.qml</file>
+        <file>images/refresh.png</file>
+        <file>images/reset.png</file>
     </qresource>
 </RCC>

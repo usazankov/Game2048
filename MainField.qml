@@ -84,14 +84,38 @@ Item{
     }
     MouseArea {
         anchors.fill: parent
-        onClicked: {
-            logic.process();
-            Code.setEnabledAnim(true);
-            Code.updateModel();
-            Code.setEnabledAnim(false);
-            //Code.createBar(div(mouse.x, mainfield.width/model.getLengthX()),div(mouse.y, mainfield.height/model.getLengthY()));
-            //Code.print_t();
+        property int minDiff: 10
+        property int xPressed: 0
+        property int xReleased: 0
+        property bool isPressed: false
+        onPressed:
+        {
+            isPressed = 1;
+            console.log("x:",mouseX);
+            xPressed = mouseX;
         }
+        onPositionChanged: {
+            if(isPressed)
+            {
+                if(mouseX - xPressed > minDiff)
+                {
+                    move("Right");
+                    isPressed = 0;
+                }
+                else if(xPressed - mouseX > minDiff)
+                {
+
+                    move("Left");
+                    isPressed = 0;
+                }
+                //console.log("x_changed:",mouseX);
+            }
+
+        }
+        onReleased: {
+            isPressed = 0;
+        }
+
     }
     onHeightChanged: {
         Code.resizeGameField();
