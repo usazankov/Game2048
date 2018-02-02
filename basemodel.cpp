@@ -67,6 +67,7 @@ void BaseModel::setModel(IBaseModel *model)
             if(bar)
             {
                 bars[bar->identificator()] = *bar;
+                bars[bar->identificator()].setParent(this);
             }
         }
         this->setScore(model->score());
