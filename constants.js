@@ -1,6 +1,6 @@
 var MARGIN_FIELD = 10;
 var colorsBar = {
-    "2": "#776e65",
+    "2": "#eee4da",
     "4": "#ede0c8",
     "8": "#f2b179",
     "16": "#f59563",

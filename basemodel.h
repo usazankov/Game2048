@@ -19,7 +19,7 @@ private:
     int m_sizex;
     int m_sizey;
     QHash<int, Bar> bars;
-    static int index;
+    int index;
 signals:
 
     // IBaseModel interface

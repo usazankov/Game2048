@@ -36,10 +36,11 @@ Item{
     function model_revert()
     {
         logic.revert();
-        Code.setEnabledAnim(false);
-        Code.deleteAllBars();
-        Code.updateModel();
+        Code.removeDelay = false;
         Code.setEnabledAnim(true);
+        //Code.deleteAllBars();
+        Code.updateModel();
+        Code.removeDelay = true;
     }
     id: mainfield
     property int x_i: model.getLengthX()
@@ -84,15 +85,16 @@ Item{
     }
     MouseArea {
         anchors.fill: parent
-        property int minDiff: 10
+        property int minDiff: 25
         property int xPressed: 0
-        property int xReleased: 0
+        property int yPressed: 0
         property bool isPressed: false
         onPressed:
         {
             isPressed = 1;
             console.log("x:",mouseX);
             xPressed = mouseX;
+            yPressed = mouseY;
         }
         onPositionChanged: {
             if(isPressed)
@@ -106,6 +108,16 @@ Item{
                 {
 
                     move("Left");
+                    isPressed = 0;
+                }
+                else if(mouseY - yPressed > minDiff)
+                {
+                    move("Down");
+                    isPressed = 0;
+                }
+                else if(yPressed - mouseY > minDiff)
+                {
+                    move("Up");
                     isPressed = 0;
                 }
                 //console.log("x_changed:",mouseX);

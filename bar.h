@@ -24,6 +24,7 @@ public:
         m_numeric = b.m_numeric;
         m_ix = b.m_ix;
         m_iy = b.m_iy;
+        m_isDeleted = b.m_isDeleted;
         return *this;
     }
     friend bool operator==(const Bar& left, const Bar& right)

@@ -77,9 +77,6 @@ bool Bar::isDeleted() const
 
 void Bar::setisDeleted(bool isDeleted)
 {
-    if (m_isDeleted == isDeleted)
-        return;
-
     m_isDeleted = isDeleted;
     emit isDeletedChanged(m_isDeleted);
 }

@@ -42,6 +42,26 @@ void Command::Execute()
 
 void Command::unExecute()
 {
+    iterBar iter = model->createIterator();
+    iterBar iter_c = copy_model->createIterator();
+    Bar * bar = nullptr;
+    while(iter->hasNext())
+    {
+        bar = iter->next();
+        if(bar)
+        {
+            Bar *bar_c = nullptr;
+            bar_c = iter_c->element(bar->identificator());
+            if(!bar_c)
+            {
+                Bar temp(*bar);
+                temp.setisDeleted(true);
+                copy_model->addBar(temp);
+            }
+        }
+    }
+    delete iter;
+    delete iter_c;
     model->setModel(copy_model);
 }
 

@@ -54,6 +54,7 @@ Bar *MapBarIterator::element(int i)
     {
         return &((*bars)[i]);
     }
+    return nullptr;
 }
 
 Bar *MapBarIterator::element(int x, int y)

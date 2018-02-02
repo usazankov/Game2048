@@ -5,7 +5,7 @@ BaseModel::BaseModel(int x, int y, QObject *parent) : IBaseModel(parent), m_size
     index = 0;
 }
 
-int BaseModel::index = 0;
+//int BaseModel::index = 0;
 
 BaseModel::BaseModel(const BaseModel &model)
 {
@@ -13,6 +13,7 @@ BaseModel::BaseModel(const BaseModel &model)
     m_sizey = model.m_sizey;
     bars = model.bars;
     m_score = model.m_score;
+    index = model.index;
 }
 
 BaseModel::~BaseModel()

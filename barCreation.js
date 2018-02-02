@@ -6,12 +6,23 @@ var count = 0;
 var x_count = model.getLengthX();
 var y_count = model.getLengthY();
 var timer = null;
+var removeDelay = true;
 
 function init()
 {
     createTimer();
 }
-
+function printBars()
+{
+    console.log("==========================");
+    for(var key in bars) {
+        console.log("bar[",key,"]: ");
+        console.log("bar.index: ", bars[key].index);
+        console.log("bar.x_i: ", bars[key].x_i);
+        console.log("bar.y_i: ", bars[key].y_i);
+    }
+    console.log("==========================\n");
+}
 function updateModel()
 {
     var iter = model.createIterator();
@@ -31,6 +42,11 @@ function updateModel()
                 {
                     bars[bar.identificator].text_color = "#f9f6f2";
                 }
+            }
+            if(bar.numeric === 2 || bar.numeric === 4)
+            {
+                bars[bar.identificator].color = Const.colorsBar[String(bar.numeric)];
+                bars[bar.identificator].text_color = "#776e65";
             }
             bars[bar.identificator].isDel = bar.isDeleted;
         }
@@ -72,7 +88,22 @@ function createTimer() {
 
 function removeisDeletedBars()
 {
-    timer.start();
+    if(removeDelay === true)
+    {
+        timer.start();
+    }
+    else
+    {
+        for(var key in bars) {
+            if(bars[key].isDel === true)
+            {
+                model.remove(key);
+                bars[key].destroy();
+                delete bars[key];
+            }
+        }
+    }
+
 }
 function updatePositionBars()
 {
