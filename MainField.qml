@@ -38,7 +38,6 @@ Item{
         logic.revert();
         Code.removeDelay = false;
         Code.setEnabledAnim(true);
-        //Code.deleteAllBars();
         Code.updateModel();
         Code.removeDelay = true;
     }
@@ -50,7 +49,6 @@ Item{
     property bool created: false
     onCreatedChanged:
     {
-        console.log("x_i=",x_i," y_i=",y_i);
         for(var i = 0; i < model.getLengthX(); ++i)
         {
             for(var j = 0; j < model.getLengthY(); ++j)
@@ -92,7 +90,6 @@ Item{
         onPressed:
         {
             isPressed = 1;
-            console.log("x:",mouseX);
             xPressed = mouseX;
             yPressed = mouseY;
         }
@@ -120,7 +117,6 @@ Item{
                     move("Up");
                     isPressed = 0;
                 }
-                //console.log("x_changed:",mouseX);
             }
 
         }
