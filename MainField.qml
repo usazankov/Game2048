@@ -2,7 +2,7 @@ import QtQuick 2.7
 import io.qt.Game2048 1.0
 import "barCreation.js" as Code
 import "constants.js" as Const
-import "gameFieldCreation.js" as CodeField
+
 Item{
     function div(val, by){
         return (val - val % by) / by;
@@ -41,6 +41,12 @@ Item{
         Code.updateModel();
         Code.removeDelay = true;
     }
+    function model_newGame()
+    {
+        Code.deleteAllBars();
+        logic.newGame();
+        Code.updateModel();
+    }
     id: mainfield
     property int x_i: model.getLengthX()
     property int y_i: model.getLengthY()
@@ -57,7 +63,9 @@ Item{
             }
         }
         Code.init();
+        Code.removeDelay = false;
         Code.updateModel();
+        Code.removeDelay = true;
     }
     Rectangle {
         id: gamerect

@@ -27,19 +27,33 @@ class IBaseModel : public QObject
 public:
     explicit IBaseModel(QObject *parent = nullptr);
     explicit IBaseModel(const IBaseModel& model);
+
     //Размеры поля
     Q_INVOKABLE virtual int getLengthX()const = 0;
     Q_INVOKABLE virtual int getLengthY()const = 0;
+
     //Получить итератор
     Q_INVOKABLE virtual IBarIterator* createIterator() = 0;
+
+    //Функции удаления и добавления элемента
     Q_INVOKABLE virtual bool remove(int i) = 0;
     virtual bool addBar(const Bar& bar) = 0;
+    virtual void clear() = 0;
+
+    //Копирование и установка модели
     virtual IBaseModel* copyModel() = 0; //Необходимо освободить память самостоятельно
     virtual void setModel(IBaseModel* model) = 0;
-    virtual void setScore(int score);
+
+    //Функции сохранения и открытия модели
+    Q_INVOKABLE virtual bool saveModel() = 0;
+    virtual bool openModel() = 0;
+
+    //Функции работы с очками
     Q_INVOKABLE virtual int score()const;
+    virtual void setScore(int score);
     Q_INVOKABLE virtual int bestScore()const;
-    virtual int setBestScore(int score);
+    virtual void setBestScore(int score);
+
     virtual ~IBaseModel();
 signals:
     void modelChanged();

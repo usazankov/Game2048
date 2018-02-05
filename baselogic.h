@@ -6,7 +6,7 @@
 #include "basemodel.h"
 #include <QDebug>
 #include <cstdlib>
-#include <ctime>
+#include <QTime>
 #include "command.h"
 #include <QVector>
 #include <QSettings>
@@ -22,6 +22,7 @@ public:
     Q_INVOKABLE void left();
     Q_INVOKABLE void process();
     Q_INVOKABLE void revert();
+    Q_INVOKABLE void newGame();
     Q_INVOKABLE void saveBestScore(int score);
     virtual ~BaseLogic();
 private:

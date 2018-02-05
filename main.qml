@@ -131,6 +131,12 @@ ApplicationWindow {
                         anchors.centerIn: parent
                         source: "images/refresh.png";
                     }
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: {
+                            mainField.model_newGame();
+                        }
+                    }
                 }
                 Rectangle
                 {

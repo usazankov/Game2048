@@ -5,8 +5,6 @@ BaseModel::BaseModel(int x, int y, QObject *parent) : IBaseModel(parent), m_size
     index = 0;
 }
 
-//int BaseModel::index = 0;
-
 BaseModel::BaseModel(const BaseModel &model)
 {
     m_sizex = model.m_sizex;
@@ -74,6 +72,60 @@ void BaseModel::setModel(IBaseModel *model)
         iter->deleteLater();
         emit modelChanged();
     }
+}
+
+bool BaseModel::saveModel()
+{
+    bool res = 0;
+    QFile file("state.dat");
+    if(file.open(QIODevice::WriteOnly))
+    {
+        QDataStream stream(&file);
+        stream << *this;
+        if (stream.status() == QDataStream::Ok)
+        {
+            res = 1;
+        }
+        else
+        {
+            qDebug() << "Ошибка записи";
+        }
+    }
+    file.close();
+    return res;
+}
+
+bool BaseModel::openModel()
+{
+    bool res = 0;
+    QFile file("state.dat");
+    if(file.open(QIODevice::ReadOnly))
+    {
+        QDataStream stream(&file);
+        stream >> *this;
+        for(auto iter = bars.begin(); iter != bars.end(); ++iter)
+        {
+            iter.value().setParent(this);
+        }
+        emit modelChanged();
+        if (stream.status() == QDataStream::Ok)
+        {
+            res = 1;
+        }
+        else
+        {
+            qDebug() << "Ошибка чтения";
+        }
+    }
+    file.close();
+    return res;
+}
+
+void BaseModel::clear()
+{
+    bars.clear();
+    index = 0;
+    m_score = 0;
 }
 
 bool BaseModel::remove(int i)

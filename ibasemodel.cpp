@@ -21,7 +21,7 @@ int IBaseModel::bestScore() const
     return m_bestScore;
 }
 
-int IBaseModel::setBestScore(int score)
+void IBaseModel::setBestScore(int score)
 {
     m_bestScore = score;
 }

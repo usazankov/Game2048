@@ -1,6 +1,7 @@
 #ifndef BAR_H
 #define BAR_H
 #include <QObject>
+#include <QDataStream>
 
 class Bar: public QObject
 {
@@ -26,6 +27,24 @@ public:
         m_iy = b.m_iy;
         m_isDeleted = b.m_isDeleted;
         return *this;
+    }
+    friend QDataStream& operator << (QDataStream &ds, const Bar &bar)
+    {
+        ds << bar.m_identificator;
+        ds << bar.m_numeric;
+        ds << bar.m_ix;
+        ds << bar.m_iy;
+        ds << bar.m_isDeleted;
+        return ds;
+    }
+    friend QDataStream& operator >>(QDataStream &ds, Bar &bar)
+    {
+        ds >> bar.m_identificator;
+        ds >> bar.m_numeric;
+        ds >> bar.m_ix;
+        ds >> bar.m_iy;
+        ds >> bar.m_isDeleted;
+        return ds;
     }
     friend bool operator==(const Bar& left, const Bar& right)
     {

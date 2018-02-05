@@ -4,8 +4,10 @@ BaseLogic::BaseLogic(IBaseModel *model) : QObject(model)
 {
     this->model = model;
     settings = new QSettings(this);
-    for(int i=0; i<2; i++)
-       addRandomBar();
+    if(!model->openModel())
+    {
+
+    }
     int score = settings->value(keyScore,0).toInt();
     model->setBestScore(score);
 }
@@ -36,11 +38,8 @@ void BaseLogic::addRandomBar()
     if(iter->size() < model->getLengthX()*model->getLengthY())
     {
         Bar temp;
-        srand(time(NULL));
-        /*std::random_device random_device; // Источник энтропии.
-        std::minstd_rand0 generator(random_device()); // Генератор случайных чисел.
-        std::uniform_int_distribution<> distributionX(0, model->getLengthX() - 1);
-        std::uniform_int_distribution<> distributionY(0, model->getLengthY() - 1);*/
+        int seed = QTime::currentTime().msecsSinceStartOfDay();
+        srand(seed);
         int x = rand() % model->getLengthX();
         int y = rand() % model->getLengthY();
         while(hasBar(x,y))
@@ -106,6 +105,13 @@ void BaseLogic::revert()
     }
 }
 
+void BaseLogic::newGame()
+{
+    model->clear();
+    for(int i=0; i<2; i++)
+        addRandomBar();
+}
+
 void BaseLogic::saveBestScore(int score)
 {
     if(model->bestScore() <= score)
@@ -117,6 +123,7 @@ void BaseLogic::saveBestScore(int score)
 
 BaseLogic::~BaseLogic()
 {
+    model->saveModel();
     delete settings;
 }
 

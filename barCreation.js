@@ -52,7 +52,7 @@ function updateModel()
         }
         else
         {
-            createBar(bar.ix, bar.iy, bar.numeric, bar.identificator);
+            createBar(bar.ix, bar.iy, bar.numeric, bar.identificator, bar.isDeleted);
         }
     }
     updatePositionBars();
@@ -113,13 +113,13 @@ function updatePositionBars()
     }
 }
 
-function createBar(x_i, y_i, num, i)
+function createBar(x_i, y_i, num, i, isDel)
 {
-    loadComponent(x_i * mainfield.width_m/x_count, y_i * mainfield.height_m/y_count, num, i);
+    loadComponent(x_i * mainfield.width_m/x_count, y_i * mainfield.height_m/y_count, num, i, isDel);
 }
-function loadComponent(x,y,num,i) {
+function loadComponent(x,y,num,i,isDel) {
     if (itemComponent != null) { // component has been previously loaded
-        createItem(x,y,num,i);
+        createItem(x,y,num,i,isDel);
         return;
     }
 
@@ -127,7 +127,7 @@ function loadComponent(x,y,num,i) {
     if (itemComponent.status == Component.Loading)  //Depending on the content, it can be ready or error immediately
         component.statusChanged.connect(createItem);
     else
-        createItem(x,y,num,i);
+        createItem(x,y,num,i,isDel);
 }
 
 function loadComponent_p(x,y) {
@@ -172,7 +172,7 @@ function createTile(x,y) {
     }
 }
 
-function createItem(x,y,num,i) {
+function createItem(x,y,num,i,isDel) {
     if (itemComponent.status == Component.Ready) {
         if(!contains(bars, i)){
             var item = itemComponent.createObject(gamerect, {
@@ -183,7 +183,8 @@ function createItem(x,y,num,i) {
                                                   "index" : i,
                                                   "x_i": Math.round(x * x_count/mainfield.width_m),
                                                   "y_i": Math.round(y * y_count/mainfield.height_m),
-                                                  "numeric": String(num)
+                                                  "numeric": String(num),
+                                                  "isDel":isDel
                                                   });
             bars[i] = item;
             bars[i].anim_enabled = true;
