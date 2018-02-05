@@ -87,6 +87,11 @@ void BaseLogic::process()
                model->setBestScore(model->score());
            }
         }
+        else
+        {
+            commands.pop_back();
+            delete com;
+        }
     }
 }
 
