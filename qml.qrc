@@ -9,5 +9,7 @@
         <file>Tile.qml</file>
         <file>images/refresh.png</file>
         <file>images/reset.png</file>
+        <file>InformDialog.qml</file>
+        <file>dialogs.js</file>
     </qresource>
 </RCC>

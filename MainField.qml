@@ -2,6 +2,7 @@ import QtQuick 2.7
 import io.qt.Game2048 1.0
 import "barCreation.js" as Code
 import "constants.js" as Const
+import "dialogs.js" as Dialogs
 
 Item{
     function div(val, by){
@@ -32,6 +33,7 @@ Item{
         Code.updateModel();
         Code.setEnabledAnim(false);
         logic.saveBestScore(model.score());
+        Dialogs.createDialog("Игра окончена");
     }
     function model_revert()
     {

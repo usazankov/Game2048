@@ -1,9 +1,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include "bar.h"
-#include "tests/testbasemodel.h"
 #include "baselogic.h"
-#include "gui/gamefieldhandler.h"
 #include <QQmlContext>
 
 int main(int argc, char *argv[])
