@@ -12,6 +12,7 @@ BaseModel::BaseModel(const BaseModel &model)
     bars = model.bars;
     m_score = model.m_score;
     index = model.index;
+    currentState = model.currentState;
 }
 
 BaseModel::~BaseModel()

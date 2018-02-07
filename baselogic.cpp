@@ -6,7 +6,7 @@ BaseLogic::BaseLogic(IBaseModel *model) : QObject(model)
     settings = new QSettings(this);
     if(!model->openModel())
     {
-
+        newGame();
     }
     int score = settings->value(keyScore,0).toInt();
     model->setBestScore(score);
@@ -68,9 +68,77 @@ bool BaseLogic::hasBar(int x, int y)
 
 void BaseLogic::execute(Command *command)
 {
-    command->setModel(model);
-    command->Execute();
+    if(model->state() == IBaseModel::WaitCommand){
+        command->setModel(model);
+        command->Execute();
+    }
     commands.push_back(command);
+}
+
+void BaseLogic::checkModel()
+{
+    bool res = 0;
+    iterBar iter = model->createIterator();
+    //Проверка на проигрыш
+    if(iter->size() == model->getLengthX()*model->getLengthY())
+    {
+        Bar * bar = nullptr;
+        //Двигаемся по столбцам:
+        for(int i = 0; i < model->getLengthX(); ++i)
+        {
+            for(int j = 0; j < model->getLengthY(); ++j)
+            {
+                bar = iter->element(i,j);
+                if(bar){
+                    Bar *bari = iter->element(i+1,j);
+                    if(bari){
+                        if(bar->numeric() == bari->numeric())
+                        {
+                            res = 1;
+                            break;
+                        }
+                    }
+                    Bar *barj = iter->element(i,j+1);
+                    if(barj){
+                        if(bar->numeric() == barj->numeric())
+                        {
+                            res = 1;
+                            break;
+                        }
+                    }
+                }
+            }
+            if(res)break;
+        }
+        if(!res)
+        {
+            model->setState(IBaseModel::GameOver);
+        }
+        else
+        {
+            model->setState(IBaseModel::WaitCommand);
+        }
+    }
+    else
+    {
+        model->setState(IBaseModel::WaitCommand);
+    }
+
+    //Проверка на выигрыш
+    Bar * bar = nullptr;
+    while(iter->hasNext())
+    {
+        bar = iter->next();
+        if(bar)
+        {
+            if(bar->numeric() >= 2048)
+            {
+                model->setState(IBaseModel::Win);
+            }
+        }
+    }
+
+    delete iter;
 }
 
 void BaseLogic::process()
@@ -85,6 +153,7 @@ void BaseLogic::process()
            {
                model->setBestScore(model->score());
            }
+
         }
         else
         {
@@ -92,22 +161,27 @@ void BaseLogic::process()
             delete com;
         }
     }
+    checkModel();
 }
 
 void BaseLogic::revert()
 {
-    if(commands.size() > 0){
-        Command *com = commands.back();
-        com->setModel(model);
-        com->unExecute();
-        commands.pop_back();
-        delete com;
+    if(model->state() != IBaseModel::Win){
+        if(commands.size() > 0){
+            Command *com = commands.back();
+            com->setModel(model);
+            com->unExecute();
+            commands.pop_back();
+            delete com;
+            model->setState(IBaseModel::WaitCommand);
+        }
     }
 }
 
 void BaseLogic::newGame()
 {
     model->clear();
+    model->setState(IBaseModel::WaitCommand);
     for(int i=0; i<2; i++)
         addRandomBar();
 }

@@ -1,5 +1,6 @@
 var dialogComponent = null;
 var dialogitem = null
+var anim_enabled = true;
 function createDialog(text)
 {
     loadComponent_dialog(text);
@@ -10,6 +11,7 @@ function deleteDialog()
     {
         dialogitem.destroy();
         delete dialogitem;
+        dialogitem = null;
     }
 }
 
@@ -41,6 +43,7 @@ function createDialogComp(text) {
                                                       "y":mainField.y,
                                                       "z": 20,
                                                       "text_mes": text,
+                                                      "anim_enabled": anim_enabled
                                                   });
         dialogitem.dialog_opacity = 0.5;
         dialogitem.text_opacity = 1;

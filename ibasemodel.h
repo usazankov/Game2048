@@ -20,11 +20,19 @@ public:
         //qDebug() << "Iter deleted";
     }
 };
+
 typedef IBarIterator* iterBar;
 class IBaseModel : public QObject
 {
     Q_OBJECT
 public:
+    enum State{
+        WaitCommand,
+        GameOver,
+        Win
+    };
+    Q_ENUM(State)
+
     explicit IBaseModel(QObject *parent = nullptr);
     explicit IBaseModel(const IBaseModel& model);
 
@@ -44,6 +52,10 @@ public:
     virtual IBaseModel* copyModel() = 0; //Необходимо освободить память самостоятельно
     virtual void setModel(IBaseModel* model) = 0;
 
+    //Получить или установить текущее состояние модели
+    Q_INVOKABLE virtual State state();
+    virtual void setState(State state);
+
     //Функции сохранения и открытия модели
     Q_INVOKABLE virtual bool saveModel() = 0;
     virtual bool openModel() = 0;
@@ -60,6 +72,7 @@ signals:
 protected:
     int m_score;
     int m_bestScore;
+    State currentState;
 public slots:
 };
 #endif // IBASEMODEL_H

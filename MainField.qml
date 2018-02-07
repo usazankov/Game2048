@@ -30,14 +30,34 @@ Item{
         Code.setEnabledAnim(true);
         Code.updateModel();
         logic.process();
+        if(model.state() === IBaseModel.GameOver)
+        {
+            isBlocked = true;
+            Dialogs.createDialog("Игра окончена");
+        }
+        else if(model.state() === IBaseModel.Win)
+        {
+            isBlocked = true;
+            Dialogs.createDialog("Вы победили!");
+        }
+        else if(model.state() === IBaseModel.WaitCommand && isBlocked)
+        {
+            Dialogs.deleteDialog();
+        }
+
         Code.updateModel();
         Code.setEnabledAnim(false);
         logic.saveBestScore(model.score());
-        Dialogs.createDialog("Игра окончена");
+
     }
     function model_revert()
     {
+        isBlocked = false;
         logic.revert();
+        if(model.state() === IBaseModel.WaitCommand)
+        {
+            Dialogs.deleteDialog();
+        }
         Code.removeDelay = false;
         Code.setEnabledAnim(true);
         Code.updateModel();
@@ -45,8 +65,14 @@ Item{
     }
     function model_newGame()
     {
+        isBlocked = false;
         Code.deleteAllBars();
         logic.newGame();
+        console.log("model.state = ",model.state());
+        if(model.state() === IBaseModel.WaitCommand)
+        {
+            Dialogs.deleteDialog();
+        }
         Code.updateModel();
     }
     id: mainfield
@@ -55,6 +81,7 @@ Item{
     property int width_m: width - Const.MARGIN_FIELD;
     property int height_m: height - Const.MARGIN_FIELD;
     property bool created: false
+    property bool isBlocked: false;
     onCreatedChanged:
     {
         for(var i = 0; i < model.getLengthX(); ++i)
@@ -66,6 +93,16 @@ Item{
         }
         Code.init();
         Code.removeDelay = false;
+        if(model.state() === IBaseModel.GameOver)
+        {
+            isBlocked = true;
+            Dialogs.createDialog("Игра окончена");
+        }
+        else if(model.state() === IBaseModel.Win)
+        {
+            isBlocked = true;
+            Dialogs.createDialog("Вы победили!");
+        }
         Code.updateModel();
         Code.removeDelay = true;
     }

@@ -20,6 +20,7 @@ public:
         ds << bm.m_score;
         ds << bm.m_bestScore;
         ds << bm.index;
+        ds << (int)bm.currentState;
         ds << bm.bars.count();
         for(auto iter = bm.bars.cbegin(); iter != bm.bars.cend(); ++iter)
         {
@@ -34,6 +35,9 @@ public:
         ds >> bm.m_score;
         ds >> bm.m_bestScore;
         ds >> bm.index;
+        int state = 0;
+        ds >> state;
+        bm.currentState = (State)state;
         int count = 0;
         ds >> count;
         Bar bar;

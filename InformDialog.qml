@@ -1,6 +1,7 @@
 import QtQuick 2.0
 Item{
     property int anim_dur: 1000;
+    property bool anim_enabled: true;
     property alias text_mes: dialogTxt.text;
     property alias dialog_opacity: dialogRect.opacity;
     property alias text_opacity: dialogTxt.opacity;
@@ -13,7 +14,7 @@ Item{
         z: 20;
         Behavior on opacity {
             id: behdialogrect;
-            enabled: true
+            enabled: anim_enabled
             NumberAnimation {
                 duration: anim_dur
                 easing.type:  Easing.Linear;
@@ -35,7 +36,7 @@ Item{
         z: 21;
         Behavior on opacity {
             id: behdialogtext;
-            enabled: true
+            enabled: anim_enabled
             NumberAnimation {
                 duration: anim_dur
                 easing.type:  Easing.Linear;

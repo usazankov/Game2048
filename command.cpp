@@ -4,6 +4,7 @@ Command::Command(QObject *parent) : QObject(parent)
 {
     modelIsChange = 0;
     m_isMoved = 0;
+    copy_model = nullptr;
 }
 
 Command::Command(const Command &com)
@@ -20,7 +21,8 @@ void Command::setModel(IBaseModel *model)
 
 Command::~Command()
 {
-    copy_model->deleteLater();
+    if(copy_model)
+        copy_model->deleteLater();
 }
 
 void Command::Execute()

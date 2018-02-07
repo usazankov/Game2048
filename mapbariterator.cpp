@@ -43,7 +43,13 @@ int MapBarIterator::size()
 {
     if(bars)
     {
-        return bars->size();
+        int counts = 0;
+        for(auto iter = bars->cbegin(); iter != bars->cend(); ++iter)
+        {
+            if(iter.value().isDeleted())
+                ++counts;
+        }
+        return bars->size() - counts;
     }
     return 0;
 }
