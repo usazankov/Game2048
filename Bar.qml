@@ -8,14 +8,14 @@ Rectangle{
     property int x_i: 0
     property int y_i: 0
     property bool isDel: false
-    property int anim_duration: 300
+    property int anim_duration: 100
     property alias numeric: txt.text;
     property alias text_color: txt.color;
     property bool anim_enabled: true
     property bool anim_opacity: true
     property int margin: Const.MARGIN_FIELD
     z: 10;
-    radius: 10.0
+    radius: appwindow.dp(10.0)
     onAnim_opacityChanged:
     {
         behheight.enabled = anim_opacity;
@@ -32,7 +32,7 @@ Rectangle{
         id: txt;
         anchors.centerIn: parent
         color: "#776e65";
-        font.pointSize: 18
+        font.pixelSize: appwindow.dp(24)
         text: "2";
         font.bold: true
         Behavior on text {

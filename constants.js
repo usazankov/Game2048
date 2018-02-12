@@ -1,4 +1,4 @@
-var MARGIN_FIELD = 10;
+var MARGIN_FIELD = appwindow.dp(10);
 var colorsBar = {
     "2": "#eee4da",
     "4": "#ede0c8",

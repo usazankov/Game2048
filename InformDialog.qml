@@ -5,12 +5,13 @@ Item{
     property alias text_mes: dialogTxt.text;
     property alias dialog_opacity: dialogRect.opacity;
     property alias text_opacity: dialogTxt.opacity;
+    anchors.fill: parent;
     Rectangle{
         id: dialogRect;
         anchors.fill: parent;
         color: "#beb0a3";
         opacity: 0;
-        radius: 10;
+        radius: dp(10);
         z: 20;
         Behavior on opacity {
             id: behdialogrect;
@@ -31,7 +32,7 @@ Item{
         width: dialogRect.width;
         height: dialogRect.height;
         color: "#776e65";
-        font.pointSize: 26;
+        font.pixelSize: dp(35);
         font.bold: true
         z: 21;
         Behavior on opacity {

@@ -36,7 +36,7 @@ function createDialogComp(text) {
         }
         else
         {
-            dialogitem = dialogComponent.createObject(mainItem, {
+            dialogitem = dialogComponent.createObject(mainField, {
                                                       "width": mainField.width,
                                                       "height": mainField.height,
                                                       "x": mainField.x,

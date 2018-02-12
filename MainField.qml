@@ -172,11 +172,24 @@ Item{
         }
 
     }
-    onHeightChanged: {
+    onWidth_mChanged:
+    {
+        console.log("onWidthChanged:");
+        //height_m = height - Const.MARGIN_FIELD;
+        Code.setEnabledAnim(false);
         Code.resizeGameField();
     }
-
-    onWidthChanged: {
+    onHeight_mChanged:
+    {
+        console.log("onHeightChanged:");
+        //width_m = width - Const.MARGIN_FIELD;
+        Code.setEnabledAnim(false);
         Code.resizeGameField();
+    }
+    onHeightChanged: {
+
+    }
+    onWidthChanged: {
+
     }
 }
