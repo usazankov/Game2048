@@ -181,6 +181,7 @@ void BaseLogic::revert()
 void BaseLogic::newGame()
 {
     model->clear();
+    commands.clear();
     model->setState(IBaseModel::WaitCommand);
     for(int i=0; i<2; i++)
         addRandomBar();

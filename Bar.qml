@@ -8,7 +8,7 @@ Rectangle{
     property int x_i: 0
     property int y_i: 0
     property bool isDel: false
-    property int anim_duration: 100
+    property int anim_duration: 150
     property alias numeric: txt.text;
     property alias text_color: txt.color;
     property bool anim_enabled: true
@@ -32,7 +32,7 @@ Rectangle{
         id: txt;
         anchors.centerIn: parent
         color: "#776e65";
-        font.pixelSize: appwindow.dp(24)
+        font.pixelSize: appwindow.dp(30)
         text: "2";
         font.bold: true
         Behavior on text {

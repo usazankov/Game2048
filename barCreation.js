@@ -216,8 +216,6 @@ function setEnabledAnim(enabled)
 }
 function resizeGameField()
 {
-    console.log("mainfield.width_m = ", mainfield.width_m);
-    console.log("mainfield.height_m = ", mainfield.height_m);
     for(var i in bars) {
         bars[i].width = mainfield.width_m/x_count - Const.MARGIN_FIELD;
         bars[i].height = mainfield.height_m/y_count - Const.MARGIN_FIELD;
