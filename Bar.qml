@@ -16,6 +16,29 @@ Rectangle{
     property int margin: Const.MARGIN_FIELD
     z: 10;
     radius: appwindow.dp(10.0)
+    SequentialAnimation {
+        id: animScale
+        NumberAnimation {
+            target: barrect
+            from: 1.0
+            to: 1.2
+            properties: "scale"
+            easing.type: Easing.Linear
+            duration: 75
+        }
+        NumberAnimation {
+            target: barrect
+            from: 1.2
+            to: 1.0
+            properties: "scale"
+            easing.type: Easing.Linear
+            duration: 75
+        }
+    }
+    onNumericChanged:
+    {
+        animScale.running = true;
+    }
     onAnim_opacityChanged:
     {
         behheight.enabled = anim_opacity;
@@ -98,12 +121,4 @@ Rectangle{
             easing.type: Easing.InQuad
         }
     }
-    /*Behavior on opacity {
-        id: behopacity;
-        enabled: true
-        NumberAnimation {
-            duration: 500
-            easing.type: Easing.InCubic
-        }
-    }*/
 }

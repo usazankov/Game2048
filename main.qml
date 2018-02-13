@@ -207,7 +207,7 @@ ApplicationWindow {
                     text: qsTr("2 + 2 = 4. Получи плитку 2048!");
                     color: "#776e65";
                     font.bold: true
-                    font.pixelSize: dp(28)
+                    font.pixelSize: dp(24)
                 }
             }
             height: dp(50)
