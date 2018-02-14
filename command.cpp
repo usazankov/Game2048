@@ -19,6 +19,20 @@ void Command::setModel(IBaseModel *model)
     this->model = model;
 }
 
+void Command::saveData(QDataStream &ds)
+{
+    copy_model->saveModel(ds);
+    ds << m_isMoved;
+}
+
+void Command::openData(QDataStream &ds)
+{
+    copy_model = model->copyModel();
+    copy_model->clear();
+    copy_model->openModel(ds);
+    ds >> m_isMoved;
+}
+
 Command::~Command()
 {
     if(copy_model)

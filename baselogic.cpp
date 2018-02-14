@@ -4,7 +4,7 @@ BaseLogic::BaseLogic(IBaseModel *model) : QObject(model)
 {
     this->model = model;
     settings = new QSettings(this);
-    if(!model->openModel())
+    if(!openSavedModel())
     {
         newGame();
     }
@@ -145,6 +145,31 @@ void BaseLogic::checkModel()
     delete iter;
 }
 
+bool BaseLogic::openSavedModel()
+{
+    bool res = 0;
+    QFile file(game::nameFileToSaveState);
+    if(file.open(QIODevice::ReadOnly))
+    {
+        QDataStream stream(&file);
+        if(model->openModel(stream))
+        {
+           res = 1;
+        }
+        unsigned int size = 0;
+        stream >> size;
+        for(unsigned int i = 0; i < size; i++)
+        {
+            Command *com = new Command(this);
+            com->setModel(model);
+            com->openData(stream);
+            commands.push_front(com);
+        }
+    }
+    file.close();
+    return res;
+}
+
 void BaseLogic::process()
 {
     if(commands.size() > 0)
@@ -202,12 +227,22 @@ void BaseLogic::saveBestScore(int score)
 
 BaseLogic::~BaseLogic()
 {
-    model->saveModel();
     QFile file(game::nameFileToSaveState);
+    if(file.open(QIODevice::WriteOnly))
+    {
+        QDataStream stream(&file);
+        model->saveModel(stream);
+    }
+    file.close();
     if(file.open(QIODevice::Append))
     {
         QDataStream stream(&file);
-        stream << *this;
+        stream << (unsigned int)commands.size();
+        while(!commands.empty())
+        {
+            commands.back()->saveData(stream);
+            commands.pop_back();
+        }
     }
     delete settings;
 }

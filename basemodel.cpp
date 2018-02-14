@@ -75,50 +75,38 @@ void BaseModel::setModel(IBaseModel *model)
     }
 }
 
-bool BaseModel::saveModel()
+bool BaseModel::saveModel(QDataStream &stream)
 {
-    bool res = 0;
-    QFile file(game::nameFileToSaveState);
-    if(file.open(QIODevice::WriteOnly))
-    {
-        QDataStream stream(&file);
-        stream << *this;
-        if (stream.status() == QDataStream::Ok)
-        {
-            res = 1;
-        }
-        else
-        {
-            qDebug() << "Ошибка записи";
-        }
-    }
-    file.close();
-    return res;
+     bool res = 0;
+     stream << *this;
+     if (stream.status() == QDataStream::Ok)
+     {
+         res = 1;
+     }
+     else
+     {
+         qDebug() << "Ошибка записи";
+     }
+     return res;
 }
 
-bool BaseModel::openModel()
+bool BaseModel::openModel(QDataStream &stream)
 {
     bool res = 0;
-    QFile file(game::nameFileToSaveState);
-    if(file.open(QIODevice::ReadOnly))
+    stream >> *this;
+    for(auto iter = bars.begin(); iter != bars.end(); ++iter)
     {
-        QDataStream stream(&file);
-        stream >> *this;
-        for(auto iter = bars.begin(); iter != bars.end(); ++iter)
-        {
-            iter.value().setParent(this);
-        }
-        emit modelChanged();
-        if (stream.status() == QDataStream::Ok)
-        {
-            res = 1;
-        }
-        else
-        {
-            qDebug() << "Ошибка чтения";
-        }
+        iter.value().setParent(this);
     }
-    file.close();
+    emit modelChanged();
+    if (stream.status() == QDataStream::Ok)
+    {
+        res = 1;
+    }
+    else
+    {
+        qDebug() << "Ошибка чтения";
+    }
     return res;
 }
 

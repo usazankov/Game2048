@@ -57,8 +57,8 @@ public:
     virtual void setState(State state);
 
     //Функции сохранения и открытия модели
-    Q_INVOKABLE virtual bool saveModel() = 0;
-    virtual bool openModel() = 0;
+    Q_INVOKABLE virtual bool saveModel(QDataStream &stream) = 0;
+    virtual bool openModel(QDataStream &stream) = 0;
 
     //Функции работы с очками
     Q_INVOKABLE virtual int score()const;

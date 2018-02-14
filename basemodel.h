@@ -68,8 +68,8 @@ public:
     bool addBar(const Bar &bar);
     IBaseModel *copyModel();
     void setModel(IBaseModel *model);
-    bool saveModel();
-    bool openModel();
+    bool saveModel(QDataStream &stream);
+    bool openModel(QDataStream &stream);
     void clear();
 };
 

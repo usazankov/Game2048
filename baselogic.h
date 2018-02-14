@@ -31,12 +31,13 @@ private:
     bool hasBar(int x, int y);
     void execute(Command * command);
     void checkModel();
+    bool openSavedModel();
     IBaseModel *model;
     bool barsMoved;
     std::deque<Command*> commands;
     QSettings *settings;
     const QString keyScore = "Scores/bestScore";
-    const unsigned int sizeCommandHistory = 3;
+    const unsigned int sizeCommandHistory = 99999;
 signals:
 
 public slots:
