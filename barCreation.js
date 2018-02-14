@@ -49,6 +49,10 @@ function updateModel()
                 bars[bar.identificator].text_color = "#776e65";
             }
             bars[bar.identificator].isDel = bar.isDeleted;
+            if(bar.isDeleted === true)
+            {
+                bars[bar.identificator].z = 9;
+            }
         }
         else
         {
