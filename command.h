@@ -11,6 +11,7 @@ public:
     explicit Command(QObject *parent = nullptr);
     explicit Command(const Command& com);
     void setModel(IBaseModel* model);
+    virtual void saveData(QDataStream &ds);
     virtual ~Command();
     Command& operator =(const Command& com)
     {

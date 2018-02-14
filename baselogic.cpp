@@ -73,6 +73,10 @@ void BaseLogic::execute(Command *command)
         command->Execute();
     }
     commands.push_back(command);
+    if(commands.size() > sizeCommandHistory)
+    {
+        commands.pop_front();
+    }
 }
 
 void BaseLogic::checkModel()
@@ -199,6 +203,12 @@ void BaseLogic::saveBestScore(int score)
 BaseLogic::~BaseLogic()
 {
     model->saveModel();
+    QFile file(game::nameFileToSaveState);
+    if(file.open(QIODevice::Append))
+    {
+        QDataStream stream(&file);
+        stream << *this;
+    }
     delete settings;
 }
 

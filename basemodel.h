@@ -6,7 +6,9 @@
 #include "ibasemodel.h"
 #include "mapbariterator.h"
 #include <QFile>
-
+namespace game {
+    const QString nameFileToSaveState = "state.dat";
+}
 class BaseModel : public IBaseModel
 {
     Q_OBJECT

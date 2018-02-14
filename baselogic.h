@@ -6,9 +6,9 @@
 #include "basemodel.h"
 #include <QDebug>
 #include <cstdlib>
+#include <deque>
 #include <QTime>
 #include "command.h"
-#include <QVector>
 #include <QSettings>
 
 class BaseLogic : public QObject
@@ -33,9 +33,10 @@ private:
     void checkModel();
     IBaseModel *model;
     bool barsMoved;
-    QVector<Command*> commands;
+    std::deque<Command*> commands;
     QSettings *settings;
     const QString keyScore = "Scores/bestScore";
+    const unsigned int sizeCommandHistory = 3;
 signals:
 
 public slots:

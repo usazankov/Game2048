@@ -78,7 +78,7 @@ void BaseModel::setModel(IBaseModel *model)
 bool BaseModel::saveModel()
 {
     bool res = 0;
-    QFile file("state.dat");
+    QFile file(game::nameFileToSaveState);
     if(file.open(QIODevice::WriteOnly))
     {
         QDataStream stream(&file);
@@ -99,7 +99,7 @@ bool BaseModel::saveModel()
 bool BaseModel::openModel()
 {
     bool res = 0;
-    QFile file("state.dat");
+    QFile file(game::nameFileToSaveState);
     if(file.open(QIODevice::ReadOnly))
     {
         QDataStream stream(&file);
